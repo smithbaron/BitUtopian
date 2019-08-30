@@ -1,0 +1,155 @@
+@import "~iview/dist/styles/iview.css";
+.wrapper-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+}
+.isFixed{
+    position: static;
+}
+.wrapper-header-nav {
+    width: 98%;
+    height: 50px;
+    margin: 0 auto;
+}
+.wrapper-header-nav a{
+    color: #CCC;
+}
+.wrapper-header-nav .afont{
+    color: #ccc;
+    background: transparent;
+}
+.wrapper-header-nav-logo {
+    margin-top: 6px;
+    float: left;
+}
+.wrapper-header-nav-logo img {
+    width: 115px;
+    height: 25px;
+}
+.wrapper-header .ivu-menu {
+    z-index: 901;
+    box-shadow: 0 1px 1px rgba(0,0,0,.08);
+}
+.wrapper-header .ivu-menu-horizontal {
+    height: 50px;
+    line-height: 50px;
+}
+.ivu-menu-dark{
+    background-color: #272B3D;
+}
+.wrapper-header .ivu-menu-item{
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 30px;
+}
+.wrapper-header .ivu-menu-item:hover a{
+    color: #ff9900;
+}
+
+.wrapper-header-nav-list .ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item:hover{
+    background: -webkit-linear-gradient(270deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%) !important;
+    background: -moz-linear-gradient(180deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%) !important;
+    background: linear-gradient(180deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%) !important;
+    box-sizing: border-box;
+    padding: 7px 16px !important;
+    width: 68px !important;
+}
+.wrapper-header-nav-list .ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item{
+    background-color: transparent;
+    padding: 7px 16px !important;
+    width: 72px !important;
+}
+
+.wrapper-header-nav-list .ivu-select-dropdown .ivu-menu-item:nth-child(1) {
+    background: url(../images/u160.png) no-repeat top center;
+}
+.wrapper-header-nav-list .ivu-select-dropdown .ivu-menu-item:nth-child(1):hover{
+    background: url(../images/u160.png) no-repeat top center;
+}
+.wrapper-header-nav-list .ivu-select-dropdown .ivu-menu-item:nth-child(2) {
+    border:1px solid rgba(204, 204, 204, 1);
+    border-top: none;
+    margin-top: -4px;
+    height: 31px;
+    line-height: 16px;
+}
+.wrapper-header-nav-list .ivu-select-dropdown .ivu-menu-item:nth-child(2):hover{
+    background: -webkit-linear-gradient(270deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%) !important;
+    background: -moz-linear-gradient(180deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%) !important;
+    background: linear-gradient(180deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%) !important;
+}
+.wrapper-header .wrapper-header-nav-list .ivu-select-dropdown{
+    border-width: 0px;
+    overflow: hidden;
+    width: 104px !important;
+    min-width:104px !important;
+    height: auto;
+    padding: 0px;
+    background: -webkit-linear-gradient(270deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%);
+    background: -moz-linear-gradient(180deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%);
+    background: linear-gradient(180deg, rgba(39, 43, 60, 1) 0%, rgba(39, 43, 60, 1) 0%, rgba(0, 0, 0, 1) 100%, rgba(0, 0, 0, 1) 100%);
+    box-sizing: border-box;
+    font-family: 'PingFangSC-Regular', 'PingFang SC';
+    font-weight: 400;
+    font-style: normal;
+    color: #CCCCCC;
+}
+.wrapper-header .wrapper-header-nav-list{
+    height: inherit;
+    float: right;
+    color: #fff;
+}
+
+.wrapper-header .wrapper-header-nav-user .ivu-menu-submenu-title{
+    border: none;
+    border-radius: unset;
+}
+
+.wrapper-header .wrapper-header-nav-user .blockstack-logo{
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.wrapper-header .wrapper-header-nav-user .ivu-select-dropdown .ivu-menu-item:nth-child(1){
+    background-size: cover;
+}
+
+.wrapper-header .wrapper-header-nav-login{
+    height: inherit;
+    float: right;
+    color: #fff;
+}
+.wrapper-header .wrapper-header-nav-login .login{
+    cursor: pointer;
+    margin-right: 5px;
+}
+.wrapper-header .wrapper-header-nav-login .register{
+    cursor: pointer;
+    color: #f2982f;
+    margin-left: 5px;
+}
+
+.ivu-menu-submenu-title{
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #fff;
+    margin: 9px 0px;
+    line-height: 30px;
+    border-radius: 17px;
+    padding: 0px 5px;
+}
+.ivu-menu-drop-list{
+    font-size: 14px;
+}
+.wrapper-header-con{
+    height: 775px;
+    margin-top: 50px;
+    background: -webkit-linear-gradient(to top, #272B3D 0%, #000000 100%);
+    background: linear-gradient(to top, #272B3D 0%, #000000 100%);
+    width:100%;
+    color: #fff;
+}
