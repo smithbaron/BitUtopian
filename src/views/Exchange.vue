@@ -27,6 +27,7 @@
                 </div>
             </div>
         </Content>
+        <EChartsDepth :symbolDepth="symbolDepth"></EChartsDepth>
     </Layout>
 </template>
 
@@ -39,6 +40,7 @@ import TickerSide from '../components/TickerSide'
 import TVChartHeader from '../components/TVChartHeader'
 import TradeColumn from '../components/TradeColumn'
 import SymbolDepth from '../components/SymbolDepth'
+import EChartsDepth from '../components/EChartsDepth'
 import TradeDetail from '../components/TradeDetail'
 
 export default {
@@ -50,6 +52,7 @@ export default {
     TVChartHeader,
     TradeColumn,
     SymbolDepth,
+    EChartsDepth,
     TradeDetail
   },
   data () {

@@ -6,10 +6,10 @@
                     <img src="../images/bit.png">
                 </a>
                 <MenuItem name="1">
-                    <a href="exchange.html#MA">{{menuText[0][language]}}</a>
+                    <a href="/exchange">{{menuText[0][language]}}</a>
                 </MenuItem>
                 <MenuItem name="2">
-                    <a href="indicators.html#MA">{{menuText[1][language]}}</a>
+                    <a href="/indicators#MA">{{menuText[1][language]}}</a>
                 </MenuItem>
                 <MenuItem name="3">
                     <a href="https://in.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank">{{menuText[2][language]}}</a>

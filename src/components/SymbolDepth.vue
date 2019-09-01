@@ -88,7 +88,7 @@ export default {
     height: 360px;
     background-color: #272B3D;
     border-radius: 2px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     .depth-tab{
         background-color: #1C1F2C;
         padding: 5px 10px;

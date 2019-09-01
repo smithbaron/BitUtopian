@@ -2,8 +2,8 @@
     <div class="wrapper-market-tickers">
         <div class="wrapper-content">
             <h3>{{titleText[language]}}</h3>
-            <Button v-if="isLogin !== 'true'" type="info" class="bgcolor">{{registerText[language]}}</Button>
-            <Button type="info" class="bgcolor tradeText">{{tradeText[language]}}</Button>
+            <Button v-if="isLogin !== true" type="info" class="bgcolor" @click="signIn">{{registerText[language]}}</Button>
+            <Button type="info" class="bgcolor tradeText" @click="goTrade">{{tradeText[language]}}</Button>
             <div class="wrapper-tab">
                 <div class="wrapper-coin" >
                     <Button type="info"
@@ -33,6 +33,7 @@
 import { Button, Input, Table } from 'iview'
 import { getHuoBiMarket, getOKExMarket } from '../services/active'
 import { loopRequest, formatTickers } from '../helper/util'
+import { userSession } from '../userSession'
 import { titleText, registerText, tradeText, dockingCoins, symbolCoins, searchText, columns } from '../constants/textContents'
 export default {
   name: 'marketTickers',
@@ -83,6 +84,12 @@ export default {
         this.tickerAllList = formatTickers(data, type)
         this.getTickerList()
       }, type)
+    },
+    signIn () {
+      userSession.redirectToSignIn()
+    },
+    goTrade () {
+      location.href = location.origin + '/exchange'
     },
     changeMarketType (type) {
       this.marketType = type

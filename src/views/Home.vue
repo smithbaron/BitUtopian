@@ -69,7 +69,7 @@
               <p class="con3-title" style="padding-bottom:5px">WHAT'S AN INDICATORS?</p>
               <p class="con3-title2" style="padding-bottom:15px;line-height: inherit;">BitUtopian will collect and sort out some mainstream indicators in traditional stock market, for example, the Bollinger Band, which of course are applicable to the crypto-currency market, to help users to better grasp market changes. 1) When the upper, middle and lower trajectories of the Bollinger Band go upward at the same time, obviously there are features showing strong stock price, the stock price will continue to rise in the short term and investors should resolutely hold stocks for price rise or buy in on the dips. 2) When the upper, middle and lower trajectories of the Bollinger Band go downward at the same time, obviously there are features showing weak stock price, the stock price will continue to fall in the short term and investors should resolutely hold out or sell on rallies.
               </p>
-              <a href="indicators.html">
+              <a href="/indicators">
                 <Button type="warning" ghost>NOW LET'S LEARN</Button>
               </a>
             </Col>
