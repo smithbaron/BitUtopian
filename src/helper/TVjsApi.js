@@ -49,6 +49,7 @@ var TVjsApi = (function () {
         custom_css_url: './css/tradingview_' + skin + '.css',
         locale: locale,
         debug: false,
+        theme: 'Dark',
         disabled_features: [
           // 'header_symbol_search',
           'header_saveload',
