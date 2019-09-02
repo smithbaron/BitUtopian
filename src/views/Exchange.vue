@@ -72,7 +72,9 @@ export default {
   },
   created () {
     Socket.register({ commonSetData: this.changeState })
-    Socket.connect(this.exchange, this.symbol.replace('/', '').toLocaleLowerCase())
+    Socket.connect(this.exchange, () => {
+      this.sendSocket(this.symbol)
+    })
   },
   mounted () {
     const config = {
@@ -93,18 +95,21 @@ export default {
   methods: {
     changeState (state, value) {
       if (state === 'symbol' && this.symbol !== value) {
-        const symbol = value.replace('/', '').toLocaleLowerCase()
-        this.symbolDetail = {}
-        this.symbolDepth = {}
-        this.tradeDetail = []
-        Socket.sendSymbolDetail(symbol)
-        Socket.sendSymbolDepth(symbol)
-        Socket.sendTradeDetail(symbol)
+        this.sendSocket(value)
       }
       this[state] = value
     },
+    sendSocket (value) {
+      const symbol = value.replace('/', '').toLocaleLowerCase()
+      this.symbolDetail = {}
+      this.symbolDepth = {}
+      this.tradeDetail = []
+      Socket.sendSymbolDetail(symbol)
+      Socket.sendSymbolDepth(symbol)
+      Socket.sendTradeDetail(symbol)
+    },
     getDataCallback (data) {
-      // console.log('getDataCallback', data)
+
     }
   }
 }

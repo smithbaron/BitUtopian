@@ -30,6 +30,7 @@
 
 <script>
 import { Input, Select, Option, Button, Table } from 'iview'
+import { formatSideTickers, connectList, sortList } from '../helper/util'
 import { dockingCoins, symbolCoins, columnSide } from '../constants/textContents'
 
 export default {
@@ -60,8 +61,13 @@ export default {
     this.getTickerList()
   },
   watch: {
-    tickers (tickers) {
-      this.tickerAllList = tickers
+    tickers (data) {
+      const tickers = formatSideTickers(data)
+      if (this.tickers.length === 0) {
+        this.tickerAllList = sortList(tickers, 'pair')
+      } else {
+        this.tickerAllList = sortList(connectList(this.tickerAllList, tickers), 'pair')
+      }
       this.getTickerList()
     }
   },

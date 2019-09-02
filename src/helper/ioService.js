@@ -1,5 +1,4 @@
 import pako from 'pako'
-import { formatSideTickers, connectList, sortList } from './util'
 import { wsUrl, subTickers } from '../constants/ioConfig'
 class IoService {
   constructor () {
@@ -9,15 +8,13 @@ class IoService {
     this.symbol = 'btcusdt'
   }
 
-  connect (type = 'Huobi', symbol) {
+  connect (type = 'Huobi', callback) {
     const connectUrl = wsUrl[type]
     const socketK = new WebSocket(connectUrl)
     this.SocketObj.socketK = socketK
     socketK.onopen = () => {
       socketK.send(JSON.stringify(subTickers))
-      this.sendSymbolDetail(symbol)
-      this.sendSymbolDepth(symbol)
-      this.sendTradeDetail(symbol)
+      callback && callback()
     }
     socketK.onmessage = (event) => {
       let blob = event.data
@@ -93,13 +90,7 @@ class IoService {
     const { ch, data } = response
     switch (ch) {
       case 'market.tickers':
-        const tickers = formatSideTickers(data)
-        if (this.tickers.length === 0) {
-          this.tickers = sortList(tickers)
-        } else {
-          this.tickers = sortList(connectList(this.tickers, tickers))
-        }
-        this.validFuns.commonSetData('tickers', this.tickers)
+        this.validFuns.commonSetData('tickers', data)
         break
       case `market.${this.symbol}.detail`:
         this.validFuns.commonSetData('symbolDetail', response.tick)

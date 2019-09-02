@@ -8,8 +8,8 @@
                 <div class="wrapper-coin" >
                     <Button type="info"
                             class="bgcolor"
-                            :style="marketType === item ? {'background-color': 'rgba(255, 153, 0, 1)' } : {}"
-                            @click="changeMarketType(item)"
+                            :style="exchange === item ? {'background-color': 'rgba(255, 153, 0, 1)' } : {}"
+                            @click="changeExchange(item)"
                             v-for="item in dockingCoins"
                             :key="item">{{item}}</Button>
                 </div>
@@ -23,7 +23,11 @@
                             :key="item">{{item}}</Button>
                 </div>
                 <Input class="search" @on-search="searchHandle" size="large" search :placeholder="searchText[language]" />
-                <Table class="ticker-table" :columns="columns[language]" height="400" :data="tickerList"></Table>
+                <Table class="ticker-table"
+                       :columns="columns[language]"
+                       height="400"
+                       @on-sort-change="changeSort"
+                       :data="tickerList"></Table>
             </div>
         </div>
     </div>
@@ -32,8 +36,9 @@
 <script>
 import { Button, Input, Table } from 'iview'
 import { getHuoBiMarket, getOKExMarket } from '../services/active'
-import { loopRequest, formatTickers } from '../helper/util'
+import { loopRequest, formatTickers, connectList } from '../helper/util'
 import { userSession } from '../userSession'
+import Socket from '../helper/ioService'
 import { titleText, registerText, tradeText, dockingCoins, symbolCoins, searchText, columns } from '../constants/textContents'
 export default {
   name: 'marketTickers',
@@ -45,13 +50,16 @@ export default {
   props: ['language', 'isLogin'],
   data () {
     return {
+      exchange: 'Huobi',
+      tickers: [],
       tickerAllList: [],
       tickerList: [],
       pageNo: 1,
-      marketType: 'Huobi',
       symbolType: 'BTC',
       loading: false,
       searchCode: '',
+      sortKey: 'symbol',
+      sortOrder: 'asc',
       titleText,
       registerText,
       tradeText,
@@ -62,15 +70,27 @@ export default {
     }
   },
   created () {
-    this.initMethod()
+    Socket.register({ commonSetData: this.changeState })
+    Socket.connect(this.exchange)
   },
   mounted () {
     this.addScrollEvent()
   },
+  watch: {
+    tickers (data) {
+      const tickers = formatTickers(data)
+      if (this.tickers.length === 0) {
+        this.tickerAllList = this.sortList(tickers)
+      } else {
+        this.tickerAllList = this.sortList(connectList(this.tickerAllList, tickers, 'symbol'))
+      }
+      this.getTickerList()
+    }
+  },
   methods: {
     initMethod () {
       let action
-      const type = this.marketType
+      const type = this.exchange
       switch (type) {
         case 'OKEx':
           action = getOKExMarket
@@ -85,14 +105,33 @@ export default {
         this.getTickerList()
       }, type)
     },
+    changeState (state, value) {
+      this[state] = value
+    },
     signIn () {
       userSession.redirectToSignIn()
     },
     goTrade () {
       location.href = location.origin + '/exchange'
     },
-    changeMarketType (type) {
-      this.marketType = type
+    changeSort (data) {
+      const { key, order } = data
+      this.sortKey = key
+      this.sortOrder = order
+      this.tickerAllList = this.sortList(this.tickerAllList)
+      this.getTickerList()
+    },
+    sortList (arr) {
+      return arr.sort((prev, next) => {
+        const x = prev[this.sortKey].toLowerCase()
+        const y = next[this.sortKey].toLowerCase()
+        if (x < y) { return this.sortOrder === 'asc' ? -1 : 1 }
+        if (x > y) { return this.sortOrder === 'asc' ? 1 : -1 }
+        return 0
+      })
+    },
+    changeExchange (type) {
+      this.exchange = type
       this.searchCode = ''
       this.initMethod()
     },
@@ -157,8 +196,8 @@ export default {
     .wrapper-market-tickers{
         height: 775px;
         margin-top: 50px;
-        background: -webkit-linear-gradient(to top, #272B3D 0%, #000000 100%);
-        background: linear-gradient(to top, #272B3D 0%, #000000 100%);
+        background: -webkit-linear-gradient(to bottom, #272B3D 0%, #000000 100%);
+        background: linear-gradient(to bottom, #272B3D 0%, #000000 100%);
         width:100%;
         color: #fff;
         .wrapper-content{

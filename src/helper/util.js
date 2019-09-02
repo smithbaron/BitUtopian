@@ -59,12 +59,6 @@ export function formatTickers (data, type) {
           low: formatE7(low),
           volume
         }
-      }).sort((prev, next) => {
-        const x = prev.symbol.toLowerCase()
-        const y = next.symbol.toLowerCase()
-        if (x < y) { return -1 }
-        if (x > y) { return 1 }
-        return 0
       })
     }
     case 'Huobi':
@@ -80,12 +74,6 @@ export function formatTickers (data, type) {
           low: formatE7(low),
           volume: vol
         }
-      }).sort((prev, next) => {
-        const x = prev.symbol.toLowerCase()
-        const y = next.symbol.toLowerCase()
-        if (x < y) { return -1 }
-        if (x > y) { return 1 }
-        return 0
       })
     }
   }
@@ -120,13 +108,13 @@ export function formatSideTickers (data, type) {
   }
 }
 
-export function connectList (arr1, arr2) {
+export function connectList (arr1, arr2, key = 'pair') {
   const temp = [...arr1]
   for (let i = 0; i < arr2.length; i++) {
     let flag = false
     let change = arr2[i]
     for (let j = 0; j < arr1.length; j++) {
-      if (change.pair === arr1[j].pair) {
+      if (change[key] === arr1[j][key]) {
         flag = true
         temp[j] = change
         break
@@ -139,10 +127,10 @@ export function connectList (arr1, arr2) {
   return temp
 }
 
-export function sortList (arr) {
+export function sortList (arr, key) {
   return arr.sort((prev, next) => {
-    const x = prev.pair.toLowerCase()
-    const y = next.pair.toLowerCase()
+    const x = prev[key].toLowerCase()
+    const y = next[key].toLowerCase()
     if (x < y) { return -1 }
     if (x > y) { return 1 }
     return 0
