@@ -26,6 +26,7 @@
                 <Table class="ticker-table"
                        :columns="columns[language]"
                        height="400"
+                       size="small"
                        @on-sort-change="changeSort"
                        :data="tickerList"></Table>
             </div>
@@ -191,6 +192,12 @@ export default {
         }
         this.tickerList = this.tickerAllList.filter(item => {
           if (reg.test(item.symbol)) return true
+        }).map(item => {
+          const temp = { ...item }
+          temp.cellClassName = {
+            change: item.change.indexOf('+') > -1 ? 'blue-color' : 'red-color'
+          }
+          return temp
         }).slice(0, this.pageNo * 15)
       }
     }
@@ -275,12 +282,28 @@ export default {
         }
         .ticker-table{
             margin-top: 16px;
-            .ivu-table th, td{
+            .ivu-table td{
+                background-color: #141722;
+                color: #ccc;
+            }
+            .ivu-table .ivu-table-header th{
                 background-color: #272B3D;
-                color: #fff;
+                color: #ccc;
+            }
+            .ivu-table-small th {
+                height: 40px;
+            }
+            .ivu-table-small td {
+                height: 36px;
+            }
+            .ivu-table .red-color{
+                color: #EF534F;
+            }
+            .ivu-table .blue-color{
+                color: #26A79A;
             }
             .ivu-table-body{
-                background-color: #272B3D;
+                background-color: #141722;
             }
         }
     }
