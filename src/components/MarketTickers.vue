@@ -112,7 +112,13 @@ export default {
       userSession.redirectToSignIn()
     },
     goTrade () {
-      location.href = location.origin + '/exchange'
+      const returnUrl = location.origin + '/exchange'
+      if (this.isLogin) {
+        location.href = returnUrl
+      } else {
+        userSession.redirectToSignIn()
+        localStorage.setItem('returnUrl', returnUrl)
+      }
     },
     changeSort (data) {
       const { key, order } = data

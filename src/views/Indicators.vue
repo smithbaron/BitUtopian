@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <Header>
-            <CommonHeader :language="language" :changeState="changeState"></CommonHeader>
+            <CommonHeader :language="language" :changeState="changeState" :isLogin="isLogin"></CommonHeader>
         </Header>
         <Content>
             <div class="indicators-content">
@@ -379,7 +379,7 @@ export default {
     return {
       theme: 'dark',
       language: 'en',
-      isLogin: false,
+      isLogin: true,
       isActive: '',
       isShow: true
     }

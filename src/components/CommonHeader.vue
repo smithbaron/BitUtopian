@@ -6,10 +6,10 @@
                     <img src="../images/bit.png">
                 </a>
                 <MenuItem name="1">
-                    <a href="/exchange">{{menuText[0][language]}}</a>
+                    <span @click="goUrl('/exchange')">{{menuText[0][language]}}</span>
                 </MenuItem>
                 <MenuItem name="2">
-                    <a href="/indicators#MA">{{menuText[1][language]}}</a>
+                    <span @click="goUrl('/indicators#MA')">{{menuText[1][language]}}</span>
                 </MenuItem>
                 <MenuItem name="3">
                     <a href="https://in.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank">{{menuText[2][language]}}</a>
@@ -56,7 +56,7 @@ export default {
     MenuItem,
     Submenu
   },
-  props: ['changeState', 'language'],
+  props: ['changeState', 'language', 'isLogin'],
   data () {
     return {
       theme: 'dark',
@@ -74,12 +74,17 @@ export default {
       this.user = new Person(this.userData.profile)
       this.user.username = this.userData.username.replace(/^(.+)\.(.+\..+)/, '$1')
       this.changeState('isLogin', true)
+      const returnUrl = localStorage.getItem('returnUrl')
+      returnUrl && (location.href = returnUrl)
+      localStorage.removeItem('returnUrl')
     } else if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn()
         .then((userData) => {
           console.log('userData', userData)
           window.location = window.location.origin
         })
+    } else {
+      this.changeState('isLogin', false)
     }
   },
   methods: {
@@ -88,12 +93,26 @@ export default {
       this.$router.push({ path, query: { lang } })
     },
     signIn () {
+      const returnUrl = location.href
+      localStorage.setItem('returnUrl', returnUrl)
       userSession.redirectToSignIn()
     },
     signOut () {
       userSession.signUserOut()
       this.user = null
       this.changeState('isLogin', false)
+      if (location.pathname !== '/') {
+        location.href = location.origin + '/'
+      }
+    },
+    goUrl (url) {
+      const returnUrl = location.origin + url
+      if (this.isLogin) {
+        location.href = returnUrl
+      } else {
+        userSession.redirectToSignIn()
+        localStorage.setItem('returnUrl', returnUrl)
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
     <Layout class="exchange-wrapper">
         <Header>
-            <CommonHeader :language="language" :changeState="changeState"></CommonHeader>
+            <CommonHeader :language="language" :changeState="changeState" :isLogin="isLogin"></CommonHeader>
         </Header>
         <Content class="ticker-content">
             <TickerSide :language="language"
@@ -67,7 +67,7 @@ export default {
       symbolDepth: {},
       tradeDetail: [],
       socket: null,
-      isLogin: false
+      isLogin: true
     }
   },
   created () {

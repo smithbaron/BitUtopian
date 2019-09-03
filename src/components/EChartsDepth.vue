@@ -5,20 +5,6 @@
 <script>
 import echarts from 'echarts'
 
-let obj2arr = (arr, key, up = true) => {
-  let array = []
-  arr.map((item) => {
-    array.push(item[key])
-  })
-  if (up) {
-    return array.sort()
-  } else {
-    return array.sort(function (x, y) {
-      return y - x
-    })
-  }
-}
-
 export default {
   name: 'EChartsDepth',
   props: ['symbolDepth'],
@@ -34,6 +20,7 @@ export default {
     symbolDepth (symbolDepth) {
       let bidsToatl = 0
       let asksToatl = 0
+      if (!symbolDepth.bids) return
       const bids = symbolDepth.bids.map(item => {
         bidsToatl += item[1]
         return [item[0], bidsToatl]

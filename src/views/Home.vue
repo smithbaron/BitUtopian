@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <Header>
-      <CommonHeader :language="language" :changeState="changeState"></CommonHeader>
+      <CommonHeader :language="language" :changeState="changeState" :isLogin="isLogin"></CommonHeader>
     </Header>
     <Content>
       <MarketTickers :language="language" :isLogin="isLogin"></MarketTickers>
@@ -183,7 +183,7 @@ export default {
     return {
       theme: 'dark',
       language: 'en',
-      isLogin: false
+      isLogin: true
     }
   },
   mounted () {
