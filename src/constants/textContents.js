@@ -127,7 +127,7 @@ export const columnSide = {
     title: 'Price',
     key: 'price',
     tooltip: true,
-    align: 'center'
+    align: 'left'
   }, {
     title: 'Change',
     key: 'change',

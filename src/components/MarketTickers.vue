@@ -36,8 +36,7 @@
 
 <script>
 import { Button, Input, Table } from 'iview'
-import { getHuoBiMarket, getOKExMarket } from '../services/active'
-import { loopRequest, formatTickers, connectList } from '../helper/util'
+import { formatTickers, connectList } from '../helper/util'
 import { userSession } from '../userSession'
 import Socket from '../helper/ioService'
 import { titleText, registerText, tradeText, dockingCoins, symbolCoins, searchText, columns } from '../constants/textContents'
@@ -89,22 +88,9 @@ export default {
     }
   },
   methods: {
-    initMethod () {
-      let action
-      const type = this.exchange
-      switch (type) {
-        case 'OKEx':
-          action = getOKExMarket
-          break
-        case 'Huobi':
-        default:
-          action = getHuoBiMarket
-          break
-      }
-      loopRequest.loop(action, (data) => {
-        this.tickerAllList = formatTickers(data, type)
-        this.getTickerList()
-      }, type)
+    conectSocket () {
+      Socket.doClose()
+      Socket.connect(this.exchange)
     },
     changeState (state, value) {
       this[state] = value
@@ -140,7 +126,8 @@ export default {
     changeExchange (type) {
       this.exchange = type
       this.searchCode = ''
-      this.initMethod()
+      this.tickerList = []
+      this.conectSocket()
     },
     changeSymbolType (type) {
       this.symbolType = type

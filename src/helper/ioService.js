@@ -13,7 +13,7 @@ class IoService {
     const socketK = new WebSocket(connectUrl)
     this.SocketObj.socketK = socketK
     socketK.onopen = () => {
-      socketK.send(JSON.stringify(subTickers))
+      socketK.send(JSON.stringify(subTickers[type]))
       callback && callback()
     }
     socketK.onmessage = (event) => {
@@ -21,7 +21,16 @@ class IoService {
       let reader = new FileReader()
       reader.onload = (e) => {
         let ploydata = new Uint8Array(e.target.result)
-        let msg = pako.inflate(ploydata, { to: 'string' })
+        let msg
+        if (type === 'Huobi') {
+          msg = pako.inflate(ploydata, { to: 'string' })
+        } else {
+          if (!(typeof ploydata === 'string')) {
+            msg = pako.inflateRaw(ploydata, { to: 'string' })
+          } else {
+            msg = ploydata
+          }
+        }
         this.handleData(msg)
       }
       reader.readAsArrayBuffer(blob, 'utf-8')
@@ -29,6 +38,10 @@ class IoService {
     socketK.onclose = () => {
       console.log('connection closed')
     }
+  }
+
+  doClose () {
+    this.SocketObj.socketK.close()
   }
 
   sendSymbolDetail (symbol) {

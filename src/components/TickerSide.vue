@@ -125,6 +125,7 @@ export default {
 
 <style lang="scss">
     .ticker-side-wrapper{
+        color: #ccc;
         width: 300px;
         height: 100%;
         position: relative;
@@ -151,13 +152,35 @@ export default {
                 float: left;
                 .ivu-input{
                     background-color: #272B3D;
-                    border-color: #fff;
-                    color: #fff;
+                    border-color: #ccc;
+                    color: #ccc;
                     box-shadow: none;
                 }
             }
             .select{
                 float: right;
+                .ivu-select-selection{
+                    background-color: #272B3D;
+                    border: none;
+                    box-shadow: none;
+                }
+                &.ivu-select{
+                    color: #ff9900;
+                    font-weight: bold;
+                    border-bottom: 2px #ff9900 solid;
+                }
+                .ivu-select-arrow {
+                    color: #ccc;
+                }
+            }
+            .ivu-select-dropdown{
+                background-color: #272B3D;
+                .ivu-select-item{
+                    color: #ccc;
+                }
+                .ivu-select-item-selected{
+                    color: #ff9900;
+                }
             }
         }
         .symbol-radio{
@@ -169,6 +192,10 @@ export default {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
+            .ivu-btn-default{
+                color: #ccc;
+                border-color: #ccc;
+            }
             .symbol-btn{
                 margin-right: 10px;
                 flex: 1;
@@ -188,9 +215,14 @@ export default {
 
                 .ivu-table{
                     background-color: transparent;
-                    th, td{
+                    th {
                         background-color: #272B3D;
-                        color: #fff;
+                        color: #666;
+                        border: none;
+                    }
+                    td{
+                        background-color: #272B3D;
+                        color: #ccc;
                         border: none;
                     }
                     .red-color{

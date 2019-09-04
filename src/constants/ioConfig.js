@@ -1,5 +1,6 @@
 export const wsUrl = {
-  Huobi: 'wss://api.huobi.pro/ws'
+  Huobi: 'wss://api.huobi.pro/ws',
+  OKEx: 'wss://real.okex.com:8443/ws/v3'
 }
 
 export const requestK = {
@@ -10,8 +11,14 @@ export const requestK = {
 }
 
 export const subTickers = { // 订阅数据
-  sub: 'market.tickers',
-  id: 'subTickers'
+  Huobi: {
+    sub: 'market.tickers',
+    id: 'subTickers'
+  },
+  OKEx: {
+    op: 'subscribe',
+    args: [`spot/ticker:ETH-USDT`]
+  }
 }
 
 export const subKline = { // 订阅数据
