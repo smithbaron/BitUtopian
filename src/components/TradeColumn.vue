@@ -109,7 +109,7 @@ export default {
         left: 0;
         background-color: rgba(0, 0, 0, 0.4);
         font-size: 24px;
-        color: #ccc;
+        color: #666;
         line-height: 200px;
         text-align: center;
     }

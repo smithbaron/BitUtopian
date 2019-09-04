@@ -237,6 +237,9 @@ export default {
                     &:before{
                         background-color: transparent;
                     }
+                    .ivu-table-row{
+                        cursor: pointer;
+                    }
                     .ivu-table-header{
 
                     }
