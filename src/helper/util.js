@@ -100,7 +100,7 @@ export function formatSideTickers (data, type) {
         const change = tickerChange(open, close)
         return {
           pair: formatSymbol(symbol),
-          price: formatE7(formatSidePrice(close - 0)),
+          price: formatSidePrice(close - 0),
           change
         }
       })
@@ -160,19 +160,18 @@ export function formatE7 (num) {
 }
 
 export function formatSidePrice (num) {
+  if (!num) return '-'
   if (num >= 100) {
     return num.toFixed(2)
   }
   let result = ''
   let flag = 0
   formatE7(num).split('').some(item => {
-    if (item === '0' || item === '.') {
-      result += item
-    } else {
+    if (item !== '.' && (flag || item !== '0')) {
       flag++
-      result += item
-      if (flag === 4) return true
     }
+    result += item
+    if (flag === 4) return true
     return false
   })
   return result

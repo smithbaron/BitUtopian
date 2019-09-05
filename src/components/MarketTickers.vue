@@ -124,10 +124,10 @@ export default {
       })
     },
     changeExchange (type) {
-      this.exchange = type
-      this.searchCode = ''
-      this.tickerList = []
-      this.conectSocket()
+      // this.exchange = type
+      // this.searchCode = ''
+      // this.tickerList = []
+      // this.conectSocket()
     },
     changeSymbolType (type) {
       this.symbolType = type

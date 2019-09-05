@@ -219,11 +219,13 @@ export default {
                         background-color: #272B3D;
                         color: #666;
                         border: none;
+                        font-size: 12px;
                     }
                     td{
                         background-color: #272B3D;
-                        color: #ccc;
+                        color: #FFF;
                         border: none;
+                        font-size: 12px;
                     }
                     .red-color{
                         color: #EF534F;

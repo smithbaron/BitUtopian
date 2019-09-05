@@ -101,7 +101,7 @@ export default {
                 -ms-flex: auto;
             }
             .title{
-                font-size: 14px;
+                font-size: 12px;
             }
             .dollar{
                 color: #EF534F;
@@ -114,6 +114,9 @@ export default {
             }
             .symbol-name, .high .price,.low .price,.volume .price{
                 color: #FFF;
+            }
+            .symbol-name{
+                font-size: 14px;
             }
             .change .price span:first-child {
                 margin-right: 5px;

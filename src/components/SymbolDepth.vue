@@ -15,26 +15,34 @@
             <span>Price</span>
             <span>Amount</span>
         </div>
-        <div v-if="tab !== 'asks'" class="bids-list">
-            <div v-for="(item, index) in bidsList" class="bids-item" :key="index">
-                <span>{{formatE7(item[0])}}</span>
-                <span>{{item[1]}}</span>
+        <div class="depth-content">
+            <div v-if="tab !== 'asks'" class="bids-list">
+                <div v-for="(item, index) in bidsList"
+                     class="bids-item" :key="index"
+                     :style="{background: `linear-gradient(to left, rgb(239, 83, 79, 0.1) 0%, rgb(239, 83, 79, 0.1) ${item[1] / maxBids * 100}%, #272B3D ${item[1] / maxBids * 100}%, #272B3D 100%)`}"
+                >
+                    <span>{{formatSidePrice(item[0])}}</span>
+                    <span>{{formatSidePrice(item[1])}}</span>
+                </div>
             </div>
-        </div>
-        <div v-if="tab === 'all'" class="current">
-            <span class="price">{{formatE7(symbolDetail.close)}}</span>
-            <span class="amount">${{symbolDetail.amount}}</span>
-        </div>
-        <div v-if="tab !== 'bids'" class="asks-list">
-            <div v-for="(item, index) in asksList" class="asks-item" :key="index">
-                <span>{{formatE7(item[0])}}</span>
-                <span>{{item[1]}}</span>
+            <div v-if="tab === 'all'" class="current">
+                <span class="price">{{formatSidePrice(symbolDetail.close)}}</span>
+                <span class="amount">${{formatSidePrice(symbolDetail.amount)}}</span>
+            </div>
+            <div v-if="tab !== 'bids'" class="asks-list">
+                <div v-for="(item, index) in asksList"
+                     class="asks-item" :key="index"
+                     :style="{background: `linear-gradient(to left, rgb(38, 167, 154, 0.1) 0%, rgb(38, 167, 154, 0.1) ${item[1] / maxAsks * 100}%, #272B3D ${item[1] / maxAsks * 100}%, #272B3D 100%)`}"
+                >
+                    <span>{{formatSidePrice(item[0])}}</span>
+                    <span>{{formatSidePrice(item[1])}}</span>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-import { formatE7 } from '../helper/util'
+import { formatSidePrice } from '../helper/util'
 export default {
   name: 'SymbolDepth',
   props: ['symbolDepth', 'symbolDetail'],
@@ -51,28 +59,41 @@ export default {
         class: 'asks'
       }],
       bidsList: [],
+      maxBids: 0,
       asksList: [],
-      formatE7,
+      maxAsks: 0,
+      formatSidePrice,
+      firstScroll: true,
       tab: 'all'
     }
   },
   mounted () {
-    console.log(this.symbolDepth)
+    console.log(this.tab)
   },
   watch: {
     symbolDepth (symbolDepth) {
       this.getList(symbolDepth)
     }
   },
+  updated () {
+    if (this.tab === 'all' && this.bidsList.length > 0 && this.firstScroll) {
+      this.firstScroll = false
+      const scrollCont = document.querySelector('.depth-content')
+      scrollCont.scrollTop = (scrollCont.scrollHeight + 65) / 4
+    }
+  },
   methods: {
     getList (symbolDepth) {
+      const { bids = [], asks = [] } = symbolDepth
+      this.maxBids = Math.max.apply(null, bids.map(item => item[1]))
+      this.maxAsks = Math.max.apply(null, asks.map(item => item[1]))
       if (this.tab === 'all') {
-        this.bidsList = (symbolDepth.bids || []).slice(-9)
-        this.asksList = (symbolDepth.asks || []).slice(-7)
+        this.bidsList = (symbolDepth.bids || [])
+        this.asksList = (symbolDepth.asks || [])
       } else if (this.tab === 'bids') {
-        this.bidsList = (symbolDepth.bids || []).slice(-18)
+        this.bidsList = (symbolDepth.bids || [])
       } else if (this.tab === 'asks') {
-        this.asksList = (symbolDepth.asks || []).slice(-18)
+        this.asksList = (symbolDepth.asks || [])
       }
     },
     changeTab (tab) {
@@ -88,11 +109,16 @@ export default {
     height: 360px;
     background-color: #272B3D;
     border-radius: 2px;
-    overflow-y: hidden;
+    position: relative;
+    font-size: 12px;
     .depth-tab{
         background-color: #1C1F2C;
         padding: 5px 10px;
         height: 35px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
         ul{
             display: inline-block;
             list-style-type: none;
@@ -139,14 +165,34 @@ export default {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+        position: absolute;
+        top: 35px;
+        left: 0;
+        right: 0;
+        font-size: 12px;
+        background-color: #272B3D;
         span{
             flex: 1;
             -webkit-flex: 1;
             -ms-flex: 1;
-            text-align: center;
             line-height: 30px;
             color: #999;
+            padding: 0 10px;
+            &:first-child{
+                text-align: left;
+            }
+            &:last-child{
+                text-align: right;
+            }
         }
+    }
+    .depth-content{
+        padding-top: 65px;
+        overflow-y: scroll;
+        height: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
     }
     .bids-list{
         .bids-item{
@@ -157,12 +203,15 @@ export default {
                 flex: 1;
                 -webkit-flex: 1;
                 -ms-flex: 1;
-                text-align: center;
                 &:first-child{
                     color: #EF534F;
+                    padding-left: 10px;
+                    text-align: left;
                 }
                 &:last-child{
-                    color: #fff;
+                    color: #ccc;
+                    padding-right: 10px;
+                    text-align: right;
                 }
             }
         }
@@ -172,6 +221,7 @@ export default {
         display: -ms-flexbox;
         display: flex;
         background-color: #1C1F2C;
+        font-size: 14px;
         span {
             flex: 1;
             -webkit-flex: 1;
@@ -185,7 +235,7 @@ export default {
         }
         .amount{
             padding-left: 2px;
-            color: #fff;
+            color: #ccc;
         }
     }
     .asks-list{
@@ -200,9 +250,13 @@ export default {
                 text-align: center;
                 &:first-child{
                     color: #26A79A;
+                    padding-left: 10px;
+                    text-align: left;
                 }
                 &:last-child{
-                    color: #fff;
+                    color: #ccc;
+                    padding-right: 10px;
+                    text-align: right;
                 }
             }
         }
