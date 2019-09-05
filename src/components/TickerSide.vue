@@ -126,7 +126,7 @@ export default {
 <style lang="scss">
     .ticker-side-wrapper{
         color: #ccc;
-        width: 300px;
+        width: 260px;
         height: 100%;
         position: relative;
         display: -webkit-box;

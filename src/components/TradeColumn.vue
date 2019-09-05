@@ -97,7 +97,7 @@ export default {
 
 <style lang="scss" scoped>
 .trade-column-wrapper{
-    height: 260px;
+    height: 300px;
     width: 100%;
     background-color: #272B3D;
     position: relative;
@@ -160,7 +160,7 @@ export default {
                 color: #ccc;
                 font-size: 14px;
                 line-height: 18px;
-                padding-bottom: 6px;
+                margin-bottom: 8px;
             }
             .left{
                 display: inline-block;
@@ -194,6 +194,7 @@ export default {
                 color: #fff;
                 text-align: center;
                 width: 300px;
+                line-height: 20px;
                 .orange{
                     color: #FF9900;
                     padding: 0 4px;
@@ -201,16 +202,16 @@ export default {
             }
         }
         .buy-box{
-            padding: 0 40px;
+            padding: 0 75px;
             &>div{
-                padding-bottom: 4px;
+                margin-bottom: 8px;
             }
             border-right: 1px #ccc solid;
         }
         .sell-box{
-            padding: 0 40px;
+            padding: 0 75px;
             &>div{
-                padding-bottom: 4px;
+                margin-bottom: 8px;
             }
         }
     }

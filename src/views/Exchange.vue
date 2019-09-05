@@ -137,7 +137,7 @@ export default {
         box-sizing: border-box;
     }
     .ticker-content-wrapper{
-        width: calc(100% - 300px);
+        width: calc(100% - 260px);
         height: 100%;
         display: -webkit-box;
         display: -ms-flexbox;
