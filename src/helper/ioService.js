@@ -81,6 +81,10 @@ class IoService {
       this.symbol = symbol
     }
     this.SocketObj.socketK.send(JSON.stringify({
+      req: `market.${this.symbol}.trade.detail`,
+      id: 'reqTradeDetail'
+    }))
+    this.SocketObj.socketK.send(JSON.stringify({
       sub: `market.${this.symbol}.trade.detail`,
       id: 'tradeDetail'
     }))
@@ -100,7 +104,7 @@ class IoService {
   }
 
   handleReponseData (response) {
-    const { ch, data } = response
+    const { ch, data, id } = response
     switch (ch) {
       case 'market.tickers':
         this.validFuns.commonSetData('tickers', data)
@@ -117,6 +121,9 @@ class IoService {
       default:
         console.log('handleReponseData---------------', response)
         break
+    }
+    if (id === 'reqTradeDetail') {
+      this.validFuns.commonSetData('tradeDetail', response.data)
     }
   }
 

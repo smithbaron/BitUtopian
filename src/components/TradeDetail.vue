@@ -4,27 +4,30 @@
             Trade History
         </div>
         <div class="trade-title">
-            <span>Price</span>
-            <span>Amount</span>
-            <span>Date</span>
+            <span class="price">Price</span>
+            <span class="amount">Amount</span>
+            <span class="date">Date</span>
         </div>
-        <div v-for="(item, index) in tradeHistory" class="trade-item" :key="index">
-            <span :class="{'buy': item.direction === 'buy'}">{{formatE7(item.price)}}</span>
-            <span>{{item.amount.toFixed(4)}}</span>
-            <span>{{getDate(item.ts)}}</span>
+        <div class="trade-content">
+            <div v-for="(item, index) in tradeHistory" class="trade-item" :key="index">
+                <span :class="{'price': true, 'buy': item.direction === 'buy'}">{{formatSidePrice(item.price)}}</span>
+                <span class="amount">{{formatSidePrice(item.amount)}}</span>
+                <span class="date">{{getDate(item.ts)}}</span>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { addZero, formatE7 } from '../helper/util'
+import { addZero, formatE7, formatSidePrice } from '../helper/util'
 export default {
   name: 'TradeDetail',
   props: ['tradeDetail'],
   data () {
     return {
       tradeHistory: [],
-      formatE7
+      formatE7,
+      formatSidePrice
     }
   },
   watch: {
@@ -36,11 +39,9 @@ export default {
     getList (tradeDetail) {
       const len = tradeDetail.length
       if (len === 0) {
-        this.tradeHistory = tradeDetail
-      } else if (len > 20) {
-        this.tradeHistory = tradeDetail.slice(-20)
+        this.tradeHistory = tradeDetail.slice(0, 100)
       } else {
-        this.tradeHistory = [...this.tradeHistory.slice(len - 20), ...tradeDetail]
+        this.tradeHistory = [...tradeDetail, ...this.tradeHistory].slice(0, 100)
       }
     },
     getDate (ts) {
@@ -60,28 +61,58 @@ export default {
     height: 360px;
     border-radius: 2px;
     background-color: #272B3D;
+    position: relative;
     .header{
         background-color: #1C1F2C;
         line-height: 28px;
+        height: 30px;
+        width: 100%;
         color: #ccc;
-        font-size: 12px;
+        font-size: 14px;
         padding-left: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .trade-title{
+        height: 25px;
+        line-height: 25px;
+        width: 100%;
+        position: absolute;
+        background-color: #272B3D;
+        top: 28px;
+        left: 0;
+    }
+    .trade-content {
+        padding-top: 55px;
+        overflow-y: scroll;
+        height: 100%;
+        box-sizing: border-box;
     }
     .trade-title, .trade-item{
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+        padding: 0 10px;
         span {
-            color: #999;
+            color: #666;
             flex: 1;
             -webkit-flex: 1;
             -ms-flex: 1;
             text-align: center;
         }
+        .price, .amount{
+            text-align: left;
+        }
+        .date{
+            text-align: right;
+        }
     }
     .trade-item{
-        color: #fff;
         line-height: 15px;
+        span{
+            color: #ccc;
+        }
         span:first-child{
             color: #EF534F;
         }
