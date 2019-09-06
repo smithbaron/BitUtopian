@@ -59,7 +59,8 @@ var TVjsApi = (function () {
           // 'header_undo_redo',
           // 'volume_force_overlay',
           // 'header_resolutions'，
-          'timeframes_toolbar'
+          'timeframes_toolbar',
+          'header_settings'
         ],
         // preset: "mobile",
         overrides: this.getOverrides(skin),

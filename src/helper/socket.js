@@ -68,6 +68,7 @@ var socket = (function () {
       console.log('readyState', this.socket.readyState)
       setTimeout(function () {
         this.send(data)
+        this.doOpen()
       }.bind(this), 100)
     } else {
       this.socket.send(JSON.stringify(data))

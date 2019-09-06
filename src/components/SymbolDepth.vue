@@ -45,7 +45,7 @@
 import { formatSidePrice } from '../helper/util'
 export default {
   name: 'SymbolDepth',
-  props: ['symbolDepth', 'symbolDetail'],
+  props: ['symbolDepth', 'symbolDetail', 'symbol'],
   data () {
     return {
       tabList: [{
@@ -73,13 +73,17 @@ export default {
   watch: {
     symbolDepth (symbolDepth) {
       this.getList(symbolDepth)
+    },
+    symbol (symbol) {
+      this.firstScroll = true
     }
   },
   updated () {
     if (this.tab === 'all' && this.bidsList.length > 0 && this.firstScroll) {
       this.firstScroll = false
       const scrollCont = document.querySelector('.depth-content')
-      scrollCont.scrollTop = (scrollCont.scrollHeight + 65) / 4
+      const current = document.querySelector('.current')
+      scrollCont.scrollTop = current.offsetTop - scrollCont.offsetHeight / 2
     }
   },
   methods: {

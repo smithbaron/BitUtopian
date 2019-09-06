@@ -17,27 +17,38 @@
                                        :exchange="exchange"
                                        :symbolDetail="symbolDetail"
                         ></TVChartHeader>
-                        <div class="TVChartContainer" id="tv_chart_container"></div>
+                        <div class="TVChartContainer">
+                            <div class="tab">
+                                <span :class="{'selected': tabType === 'tradingView'}" @click="tabChange('tradingView')">TradingView</span>
+                                <span :class="{'selected': tabType === 'depth'}" @click="tabChange('depth')">Depth</span>
+                            </div>
+                            <TVChartContainer v-if="tabType === 'tradingView'"
+                                              :symbol="symbol"
+                                              :exchange="exchange"
+                                              :language="language"
+                            ></TVChartContainer>
+                            <EChartsDepth v-else :symbolDepth="symbolDepth"></EChartsDepth>
+                        </div>
                     </div>
                     <TradeColumn></TradeColumn>
                 </div>
                 <div class="ticker-content-right">
-                    <SymbolDepth :symbolDepth="symbolDepth" :symbolDetail="symbolDetail"></SymbolDepth>
+                    <SymbolDepth :symbolDepth="symbolDepth" :symbolDetail="symbolDetail" :symbol="symbol"></SymbolDepth>
                     <TradeDetail :tradeDetail="tradeDetail"></TradeDetail>
                 </div>
             </div>
         </Content>
-        <EChartsDepth :symbolDepth="symbolDepth"></EChartsDepth>
     </Layout>
 </template>
 
 <script>
 import { Layout } from 'iview'
 import Socket from '../helper/ioService'
-import TVjsApi from '../helper/TVjsApi'
+// import TVjsApi from '../helper/TVjsApi'
 import CommonHeader from '../components/CommonHeader'
 import TickerSide from '../components/TickerSide'
 import TVChartHeader from '../components/TVChartHeader'
+import TVChartContainer from '../components/TVChartContainer'
 import TradeColumn from '../components/TradeColumn'
 import SymbolDepth from '../components/SymbolDepth'
 import EChartsDepth from '../components/EChartsDepth'
@@ -53,6 +64,7 @@ export default {
     TradeColumn,
     SymbolDepth,
     EChartsDepth,
+    TVChartContainer,
     TradeDetail
   },
   data () {
@@ -67,7 +79,9 @@ export default {
       symbolDepth: {},
       tradeDetail: [],
       socket: null,
-      isLogin: true
+      isLogin: true,
+      tabType: 'tradingView',
+      TVjsApi: null
     }
   },
   created () {
@@ -77,14 +91,14 @@ export default {
     })
   },
   mounted () {
-    const config = {
-      exchange: this.exchange,
-      symbol: this.symbol.replace('/', '').toLocaleLowerCase(),
-      locale: this.language,
-      callback: (data) => this.getDataCallback(data)
-    }
-    const _TVjsApi = new TVjsApi(config)
-    _TVjsApi.init()
+    // const config = {
+    //   exchange: this.exchange,
+    //   symbol: this.symbol.replace('/', '').toLocaleLowerCase(),
+    //   locale: this.language,
+    //   callback: (data) => this.getDataCallback(data)
+    // }
+    // this.TVjsApi = new TVjsApi(config)
+    // this.TVjsApi.init()
   },
   watch: {
     '$route' (to) {
@@ -96,6 +110,8 @@ export default {
     changeState (state, value) {
       if (state === 'symbol' && this.symbol !== value) {
         this.sendSocket(value)
+        // this.TVjsApi.symbol = value.replace('/', '').toLocaleLowerCase()
+        // this.TVjsApi.widgets.chart().setSymbol(value.replace('/', '').toLocaleLowerCase());
       }
       this[state] = value
     },
@@ -107,6 +123,9 @@ export default {
       Socket.sendSymbolDetail(symbol)
       Socket.sendSymbolDepth(symbol)
       Socket.sendTradeDetail(symbol)
+    },
+    tabChange (value) {
+      this.tabType = value
     },
     getDataCallback (data) {
 
@@ -171,6 +190,30 @@ export default {
             height: 100%;
             .TVChartContainer{
                 height: calc(100% - 65px);
+                position: relative;
+                background-color: #272B3D;
+                .tab{
+                    position: absolute;
+                    top: 0;
+                    right: 50px;
+                    height: 38px;
+                    line-height: 38px;
+                    color: #CCC;
+                    z-index: 1000;
+                    span{
+                        margin-right: 10px;
+                        padding: 5px;
+                        cursor: pointer;
+                    }
+                    .selected {
+                        background-color: #FF9900;
+                        border-radius: 4px;
+                        color: #fff;
+                    }
+                }
+                #tv_chart_container{
+                    height: 100%;
+                }
             }
         }
     }

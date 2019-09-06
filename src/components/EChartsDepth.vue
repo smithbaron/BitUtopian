@@ -1,5 +1,5 @@
 <template>
-    <div id="myChart" :style="{width: '637px', height: '427px'}"></div>
+    <div id="myChart" :style="{width: '100%', height: '100%'}"></div>
 </template>
 
 <script>
@@ -52,7 +52,14 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
+          axisTick: {
+            lineStyle: { color: '#ccc' }
+          },
+          axisLine: {
+            lineStyle: { color: '#ccc' }
+          },
           axisLabel: {
+            color: '#ccc',
             showMinLabel: false,
             formatter: function (val) {
               return '￥' + val
@@ -65,11 +72,16 @@ export default {
             position: 'right',
             splitNumber: 4,
             axisTick: {
+              lineStyle: { color: '#ccc' },
               inside: true
             },
             axisLabel: {
+              color: '#ccc',
               inside: true,
               showMinLabel: false
+            },
+            axisLine: {
+              lineStyle: { color: '#ccc' }
             },
             splitLine: {
               show: false
@@ -157,7 +169,13 @@ export default {
               opacity: 0.2
             }
           }
-        ]
+        ],
+        grid: {
+          x: 40,
+          y: 40,
+          x2: 40,
+          y2: 40
+        }
       })
     }
   }
