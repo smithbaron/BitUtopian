@@ -76,6 +76,14 @@ export const commonText = {
   volume: {
     en: '24h Volume',
     zh: '24h成交量'
+  },
+  noData: {
+    en: 'No Results Found',
+    zh: '暂无数据'
+  },
+  comingSoon: {
+    en: 'COMING SOON',
+    zh: '即将到来'
   }
 }
 export const dockingCoins = ['Huobi', 'OKEx']
@@ -92,7 +100,7 @@ export const columns = {
     key: 'last',
     sortable: true,
     tooltip: true,
-    align: 'right'
+    align: 'left'
   }, {
     title: '24H CHANGE',
     key: 'change',
@@ -129,7 +137,7 @@ export const columns = {
     key: 'last',
     sortable: true,
     tooltip: true,
-    align: 'right'
+    align: 'left'
   }, {
     title: '24H 涨幅',
     key: 'change',
@@ -186,4 +194,3 @@ export const columnSide = {
     align: 'right'
   }]
 }
-

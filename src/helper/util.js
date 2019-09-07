@@ -53,11 +53,11 @@ export function formatTickers (data, type) {
         const change = tickerChange(open, last)
         return {
           symbol: symbol.replace('-', '/'),
-          last: formatE7(last),
+          last: formatSidePrice(last),
           change,
-          high: formatE7(high),
-          low: formatE7(low),
-          volume
+          high: formatSidePrice(high),
+          low: formatSidePrice(low),
+          volume: formatSidePrice(volume)
         }
       })
     }
@@ -68,11 +68,11 @@ export function formatTickers (data, type) {
         const change = tickerChange(open, close)
         return {
           symbol: formatSymbol(symbol),
-          last: formatE7(close),
+          last: formatSidePrice(close),
           change,
-          high: formatE7(high),
-          low: formatE7(low),
-          volume: vol
+          high: formatSidePrice(high),
+          low: formatSidePrice(low),
+          volume: formatSidePrice(vol)
         }
       })
     }

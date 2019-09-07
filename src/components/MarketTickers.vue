@@ -25,8 +25,9 @@
                 <Input class="search" @on-search="searchHandle" size="large" search :placeholder="searchText[language]" />
                 <Table class="ticker-table"
                        :columns="columns[language]"
-                       height="400"
+                       height="436"
                        size="small"
+                       :no-data-text="exchange === 'Huobi' ? commonText.noData[language] : commonText.comingSoon[language]"
                        @on-sort-change="changeSort"
                        :data="tickerList"></Table>
             </div>
@@ -39,7 +40,7 @@ import { Button, Input, Table } from 'iview'
 import { formatTickers, connectList } from '../helper/util'
 import { userSession } from '../userSession'
 import Socket from '../helper/ioService'
-import { titleText, registerText, tradeText, dockingCoins, symbolCoins, searchText, columns } from '../constants/textContents'
+import { titleText, registerText, tradeText, dockingCoins, symbolCoins, searchText, columns, commonText } from '../constants/textContents'
 export default {
   name: 'marketTickers',
   components: {
@@ -66,7 +67,8 @@ export default {
       searchText,
       dockingCoins,
       symbolCoins,
-      columns
+      columns,
+      commonText
     }
   },
   created () {
@@ -124,10 +126,10 @@ export default {
       })
     },
     changeExchange (type) {
-      // this.exchange = type
-      // this.searchCode = ''
-      // this.tickerList = []
-      // this.conectSocket()
+      this.exchange = type
+      this.searchCode = ''
+      this.tickerList = []
+      Socket.doClose()
     },
     changeSymbolType (type) {
       this.symbolType = type
@@ -194,7 +196,7 @@ export default {
 
 <style lang="scss">
     .wrapper-market-tickers{
-        height: 775px;
+        height: 785px;
         margin-top: 50px;
         background: -webkit-linear-gradient(to bottom, #272B3D 0%, #000000 100%);
         background: linear-gradient(to bottom, #272B3D 0%, #000000 100%);
@@ -268,20 +270,32 @@ export default {
             margin-top: 16px;
         }
         .ticker-table{
+            border: 1px solid #ccc;
             margin-top: 16px;
             .ivu-table td{
                 background-color: #141722;
                 color: #ccc;
             }
+            .ivu-table{
+                &:after{
+                    background-color: transparent;
+                }
+                &:before{
+                    background-color: transparent;
+                }
+            }
             .ivu-table .ivu-table-header th{
                 background-color: #272B3D;
-                color: #ccc;
+                color: #666;
+                border-color: #ccc;
             }
             .ivu-table-small th {
                 height: 40px;
             }
             .ivu-table-small td {
                 height: 36px;
+                color: #ccc;
+                border-color: #ccc;
             }
             .ivu-table .red-color{
                 color: #EF534F;
