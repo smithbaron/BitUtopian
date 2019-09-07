@@ -12,7 +12,7 @@
             </ul>
         </div>
         <div class="depth-title">
-            <span>{{commonText['price'][language]}}</span>
+            <span >{{commonText['price'][language]}}</span>
             <span>{{commonText['amount'][language]}}</span>
         </div>
         <div class="depth-content">
@@ -26,7 +26,9 @@
                 </div>
             </div>
             <div v-if="tab === 'all'" class="current">
-                <span class="price">{{formatSidePrice(symbolDetail.close)}}</span>
+                <span class="price"
+                      :style="{color: tradeDetail[0] && tradeDetail[0].direction === 'buy' ? '#26A79A' : '#EF534F'}"
+                >{{formatSidePrice(symbolDetail.close)}}</span>
                 <span class="amount">${{formatSidePrice(symbolDetail.amount)}}</span>
             </div>
             <div v-if="tab !== 'bids'" class="asks-list">
@@ -47,7 +49,7 @@ import { commonText } from '../constants/textContents'
 
 export default {
   name: 'SymbolDepth',
-  props: ['symbolDepth', 'symbolDetail', 'symbol', 'language'],
+  props: ['symbolDepth', 'symbolDetail', 'symbol', 'language', 'tradeDetail'],
   data () {
     return {
       tabList: [{

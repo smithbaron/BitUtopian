@@ -8,7 +8,9 @@
             <div class="price-container">
                 <p class="title">{{commonText.lastPrice[language]}}</p>
                 <p class="price">
-                    <span class="dollar">{{formatSidePrice(close)}}</span>
+                    <span class="dollar"
+                          :style="{color: tradeDetail[0] && tradeDetail[0].direction === 'buy' ? '#26A79A' : '#EF534F'}"
+                    >{{formatSidePrice(close)}}</span>
                 </p>
             </div>
             <div class="change">
@@ -40,7 +42,7 @@ import { commonText } from '../constants/textContents'
 
 export default {
   name: 'TVChartContainer',
-  props: ['symbol', 'exchange', 'symbolDetail', 'language'],
+  props: ['symbol', 'exchange', 'symbolDetail', 'language', 'tradeDetail'],
   data () {
     return {
       close: '--',

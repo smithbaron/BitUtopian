@@ -15,6 +15,7 @@
                     <div class="trading-chart">
                         <TVChartHeader :symbol="symbol"
                                        :exchange="exchange"
+                                       :tradeDetail="tradeDetail"
                                        :symbolDetail="symbolDetail"
                                        :language="language"
                         ></TVChartHeader>
@@ -40,6 +41,7 @@
                 <div class="ticker-content-right">
                     <SymbolDepth :symbolDepth="symbolDepth"
                                  :symbolDetail="symbolDetail"
+                                 :tradeDetail="tradeDetail"
                                  :symbol="symbol"
                                  :language="language"
                     ></SymbolDepth>
