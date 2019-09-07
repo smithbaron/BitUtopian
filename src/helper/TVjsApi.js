@@ -18,10 +18,10 @@ var TVjsApi = (function () {
     var that = this
     this.socket.doOpen()
     this.socket.on('open', function () {
-      that.socket.send({
-        req: `market.${that.symbol}.kline.${that.getInterval(that.interval)}`,
-        id: 'reqKline'
-      })
+      // that.socket.send({
+      //   req: `market.${that.symbol}.kline.${that.getInterval(that.interval)}`,
+      //   id: 'reqKline'
+      // })
     })
     this.socket.on('message', that.onMessage.bind(this))
     this.socket.on('close', that.onClose.bind(this))
@@ -152,7 +152,7 @@ var TVjsApi = (function () {
     delete thats.cacheData[tickertime]
     delete thats.cacheData[tickerstate]
     delete thats.cacheData[tickerCallback]
-    this.sendMessage({
+    thats.sendMessage({
       unsub: `market.${thats.symbol.toLowerCase()}.kline.${thats.getInterval(thats.interval)}`,
       id: 'unsub'
     })
@@ -260,7 +260,7 @@ var TVjsApi = (function () {
       thats.subscribe()
     })
   }
-  TVjsApi.prototype.initMessage = function (symbolInfo, resolution, rangeStartDate, rangeEndDate, onLoadedCallback) {
+  TVjsApi.prototype.initMessage = function (symbolInfo, resolution, rangeStartDate, rangeEndDate, onLoadedCallback, first) {
     // console.log('发起请求，从websocket获取当前时间段的数据');
     var that = this
     // 保留当前回调
@@ -277,12 +277,20 @@ var TVjsApi = (function () {
       that.interval = resolution
     }
     // 获取当前时间段的数据，在onMessage中执行回调onLoadedCallback
-    that.socket.send({
-      req: `market.${that.symbol}.kline.${that.getInterval(that.interval)}`,
-      id: 'reqKline',
-      from: rangeStartDate,
-      to: rangeEndDate
-    })
+    console.log('reqKline>>>>>>>>>>>>>>')
+    if (first) {
+      that.socket.send({
+        req: `market.${that.symbol}.kline.${that.getInterval(that.interval)}`,
+        id: 'reqKline'
+      })
+    } else {
+      that.socket.send({
+        req: `market.${that.symbol}.kline.${that.getInterval(that.interval)}`,
+        id: 'reqKline',
+        from: rangeStartDate,
+        to: rangeEndDate
+      })
+    }
   }
   TVjsApi.prototype.initLimit = function (resolution, rangeStartDate, rangeEndDate) {
     var limit = 0
@@ -301,10 +309,12 @@ var TVjsApi = (function () {
     var tickerstate = ticker + 'state'
 
     if (!this.cacheData[ticker] && !this.cacheData[tickerstate]) {
+      console.log('getBars>>>>>>>>>>> :', ticker, this.cacheData[ticker], this.cacheData[tickerstate])
+
       // 如果缓存没有数据，而且未发出请求，记录当前节点开始时间
       this.cacheData[tickerload] = rangeStartDate
       // 发起请求，从websocket获取当前时间段的数据
-      this.initMessage(symbolInfo, resolution, rangeStartDate, rangeEndDate, onLoadedCallback)
+      this.initMessage(symbolInfo, resolution, rangeStartDate, rangeEndDate, onLoadedCallback, true)
       // 设置状态为true
       this.cacheData[tickerstate] = !0
       return false
@@ -313,7 +323,7 @@ var TVjsApi = (function () {
       // 如果缓存有数据，但是没有当前时间段的数据，更新当前节点时间
       this.cacheData[tickerload] = rangeStartDate
       // 发起请求，从websocket获取当前时间段的数据
-      this.initMessage(symbolInfo, resolution, rangeStartDate, rangeEndDate, onLoadedCallback)
+      this.initMessage(symbolInfo, resolution, rangeStartDate, rangeEndDate, onLoadedCallback, true)
       // 设置状态为true
       this.cacheData[tickerstate] = !0
       return false

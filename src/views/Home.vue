@@ -23,7 +23,7 @@
           </Row>
         </div>
       </div>
-      <div class="content2" style="height: 385px;">
+      <div v-if="language === 'en'" class="content2" style="height: 385px;">
         <div class="con-con2">
           <p class="con2-title">BitUtopian PLATFORM FEATURES</p>
           <p class="con2-detail">
@@ -48,7 +48,6 @@
                 <p class="icon-p2">
                   BitUtopian provides users with applications of some economic indicators of traditional stock market in the crypto-currency market so that users can have a better understanding and self-analysis of volatility trends of Bitcoin and other digital asset.
                 </p>
-
               </div>
             </Col>
             <Col span="8">
@@ -56,13 +55,48 @@
               <div class="con-icon left">
                 <p class="icon-p1">TRADING VIEW</p>
                 <p class="icon-p2">BitUtopian will be open to TradingView's crypto-currency market view so that it will be easier to switch between transactions and ideas, allowing the sharing and exchanges of opinions among more users.</p>
-
               </div>
             </Col>
           </Row>
         </div>
       </div>
-      <div class="content3">
+      <div v-else class="content2" >
+        <div class="con-con2">
+          <p class="con2-title">BitUtopian平台特点</p>
+          <p class="con2-detail">BitUtopian是一个功能齐全的现货交易平台的主要数字资产和加密货币，<br/>包括Bitcoin, Ethereum, EOS, Litecoin, Ripple, NEO, Monero和更多。
+          </p>
+          <Row>
+            <Col span="8">
+              <img src="../images/icon1.png" class="icon-img">
+              <div class="con-icon left">
+                <p class="icon-p1">交易</p>
+                <p class="icon-p2">
+                  BitUtopian提供了世界上最具流动性的订货单，允许用户轻松地交换比特币、以太坊(Ethereum)、EOS、莱特币(Litecoin)、Ripple、NEO和许多其他数字资产，而且几乎没有任何下滑。
+                </p>
+              </div>
+            </Col>
+            <Col span="8">
+              <img src="../images/icon2.png" class="icon-img">
+              <div class="con-icon left">
+                <p class="icon-p1">指标</p>
+                <p class="icon-p2">
+                  BitUtopian为用户提供了传统股票市场的一些经济学指标如何在加密货币市场应用，更好的了解和自我分析Bitcoin和许多其他数字资产波动趋势。
+                </p>
+              </div>
+            </Col>
+            <Col span="8">
+              <img src="../images/icon3.png" class="icon-img">
+              <div class="con-icon left">
+                <p class="icon-p1">策略</p>
+                <p class="icon-p2">
+                  BitUtopian将要接入TradingView的加密货币市场观点，更加便捷在交易和观点中进行切换，让更多的用户分享自己的观点并且进行交流。
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </div>
+      <div v-if="language === 'en'" class="content3">
         <div class="con-con3">
           <Row>
             <Col span="10">
@@ -80,7 +114,27 @@
           </Row>
         </div>
       </div>
-      <div class="content4">
+      <div v-else class="content3">
+        <div class="con-con3">
+          <Row>
+            <Col span="10">
+              <p class="con3-title">什么是指标?</p>
+              <p class="con3-title2">
+                BitUtopian将会整理一些主流的传统股票市场指标，当然这些也同样适用于加密货币市场，帮助用户更好的掌握市场变化规律。如布林带，1）当布林线的上、中、下轨线同时向上运行时，表明股价强势特征非常明显，股价短期内将继续上涨，投资者应坚决持股待涨或逢低买入。2）当布林线的上、中、下轨线同时向下运行时，表明股价的弱势特征非常明显，股价短期内将继续下跌，投资者应坚决持币观望或逢高卖出。
+              </p>
+              <a href="indicators.html">
+                <Button type="warning" ghost>让我们开始学习</Button>
+              </a>
+            </Col>
+            <Col span="2" style="color: #fff">.
+            </Col>
+            <Col span="12" >
+              <TVChart studies="BB@tv-basicstudies" height="348" theme="dark" containerId="tradingview_9ada4"></TVChart>
+            </Col>
+          </Row>
+        </div>
+      </div>
+      <div v-if="language === 'en'" class="content4">
         <div class="con-con4">
           <p class="con4-title">TRADING VIEW</p>
           <p class="con4-detail">TradingView's crypto-currency market views will be introduced to BitUtopian,<br/> making it a great community of business strategies.
@@ -134,9 +188,88 @@
           <a href="https://in.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank"><Button type="warning" ghost>NOW LET'S LEARN</Button></a>
         </div>
       </div>
-      <div class="content5">
+      <div v-else class="content4">
+        <div class="con-con4">
+          <p class="con4-title">策略</p>
+          <p class="con4-detail">BitUtopian将要接入TradingView的加密货币市场观点，它更会是一个很棒的策略社区。
+          </p>
+          <div class="ul-data">
+            <Row :gutter="25">
+              <Col span="8">
+                <div class="border-style">
+                  <p class="p-title">【分析篇】BTC——疯狂的比特币，贪婪的投资者！何处才是顶？</p>
+                  <p class="p1">XBTUSD</p>
+                  <p class="p2"><img src="../images/imgcn1.png" class="icon-ulimg"></p>
+                  <p class="p3">
+                    <span class="pname">LuFan</span>
+                    <span class="right phours">612 浏览・6月 26</span>
+                  </p>
+                  <p class="pcn4">
+                    最近的加密货币市场多少有些疯狂，疯狂在于比特币的上涨，让很多人高到不敢买！纷纷屯了主流币，山寨币，前者可能受到市场的共识认可也算可以，后者有些币仍半死不活，偶有作妖。 回看我前期发布的一些观点，我的看法一直都是涨！ 但到了这个阶段我想泼…
+                  </p>
+                </div>
+              </Col>
+              <Col span="8">
+                <div class="border-style">
+                  <p class="p-title">比特幣兌美元(BTCUSD)-大餅動向20190124
+                  </p>
+                  <p class="p1">BTCUSD</p>
+                  <p class="p2"><img src="../images/imgcn2.png" class="icon-ulimg"></p>
+                  <p class="p3">
+                    <span class="pname">TouFrancis</span>
+                    <span class="right phours">1194 浏览・1月 24</span>
+                  </p>
+                  <p class="pcn4">
+                    Hi everyone， 　　一如既往...！我們看結果，然後跟隨，調整繼續往下看結果...其餘的再多的理論都毫無意義...是不是？ TouFrancis語錄- （以上內容若需轉載或部分引用請註明出處） 關於＂進階ＰＡ＂，我所知道並認可的一些重要細節 1.學習從其他交…
+                  </p>
+                </div>
+              </Col>
+              <Col span="8">
+                <div class="border-style">
+                  <p class="p-title">比特币出现2000美元回调，牛市多暴跌</p>
+                  <p class="p1">XBTUSD</p>
+                  <p class="p2"><img src="../images/imgcn3.png" class="icon-ulimg"></p>
+                  <p class="p3">
+                    <span class="pname">Pento_Investment</span>
+                    <span class="right phours">3037 浏览・6月 27</span>
+                  </p>
+                  <p class="pcn4">
+                    昨天下午在市场冲击13000美元的时候，我在微博上提到了昨天可能会是一个重要的高点。因为市场在加速，甚至超出了对数坐标轴的趋势通道，很显然多头在逼空，昨晚美国时间的行情一度接近1.4万美元，大量空头被迫平仓后，以多头的获利出局而结束本轮…
+                  </p>
+                </div>
+              </Col>
+            </Row>
+          </div>
+          <a href="https://cn.tradingview.com/markets/cryptocurrencies/ideas/" target="_blank"><Button type="warning" ghost>让我们开始学习</Button></a>
+        </div>
+      </div>
+      <div v-if="language === 'en'" class="content5">
         <div class="con-con5">
           <p class="con5-title">COMMUNITY</p>
+          <Row>
+            <Col span="24">
+              <a href="https://twitter.com/Baron56410187" target="_blank">
+                <img src="../images/bottom1.png">
+              </a>
+              <a href="http://t.me/BitUtopian" target="_blank">
+                <img src="../images/bottom2.png">
+              </a>
+              <a href="https://www.facebook.com/baron.frank.5220" target="_blank">
+                <img src="../images/bottom3.png">
+              </a>
+              <a href="https://medium.com/@baronfrank" target="_blank">
+                <img src="../images/bottom4.png">
+              </a>
+              <a href="https://github.com/smithbaron/BitUtopian" target="_blank">
+                <img src="../images/bottom5.png" style="margin-right: 0;">
+              </a>
+            </Col>
+          </Row>
+        </div>
+      </div>
+      <div v-else class="content5">
+        <div class="con-con5">
+          <p class="con5-title">社区</p>
           <Row>
             <Col span="24">
               <a href="https://twitter.com/Baron56410187" target="_blank">

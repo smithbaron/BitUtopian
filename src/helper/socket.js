@@ -64,6 +64,7 @@ var socket = (function () {
   }
 
   socket.prototype.send = function send (data) {
+    console.log('reqKline>>>>>>>>>>>>>>', data)
     if (this.socket.readyState !== 1) {
       // console.log('readyState', this.socket.readyState)
       setTimeout(function () {
@@ -92,19 +93,21 @@ var socket = (function () {
       const response = JSON.parse(msg)
       // console.log('message >>>>>>>>>>', response)
       if (response.ping) {
-        this.checkHeartbeat.bind(this)
+        this.checkHeartbeat(response.ping)
       } else if (response.status === 'ok') {
         this.onReceiver({ Event: 'message', Data: response })
       } else if (response.ch) {
         this.onReceiver({ Event: 'message', Data: response })
+      } else {
+        console.log('message >>>>>>>>>>', response)
       }
     } catch (err) {
       console.error(' >> Data parsing error:', err)
     }
   }
 
-  socket.prototype.checkHeartbeat = function checkHeartbeat (response) {
-    this.send(JSON.stringify({ 'pong': response.ping }))
+  socket.prototype.checkHeartbeat = function checkHeartbeat (ping) {
+    this.send(JSON.stringify({ 'pong': ping }))
   }
 
   socket.prototype.onError = function onError (err) { console.log(err) }

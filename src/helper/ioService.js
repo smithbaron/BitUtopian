@@ -119,7 +119,7 @@ class IoService {
         this.validFuns.commonSetData('tradeDetail', response.tick.data)
         break
       default:
-        console.log('handleReponseData---------------', response)
+        // console.log('handleReponseData---------------', response)
         break
     }
     if (id === 'reqTradeDetail') {
