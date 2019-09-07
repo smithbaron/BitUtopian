@@ -279,7 +279,9 @@ var TVjsApi = (function () {
     // 获取当前时间段的数据，在onMessage中执行回调onLoadedCallback
     that.socket.send({
       req: `market.${that.symbol}.kline.${that.getInterval(that.interval)}`,
-      id: 'reqKline'
+      id: 'reqKline',
+      from: rangeStartDate,
+      to: rangeEndDate
     })
   }
   TVjsApi.prototype.initLimit = function (resolution, rangeStartDate, rangeEndDate) {
