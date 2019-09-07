@@ -135,7 +135,7 @@ export default {
             },
             areaStyle: {
               color: '#26A79A',
-              opacity: 0.5
+              opacity: 0.1
             }
           },
           {
@@ -178,7 +178,7 @@ export default {
             },
             areaStyle: {
               color: '#EF534F',
-              opacity: 0.5
+              opacity: 0.1
             }
           }
         ],
