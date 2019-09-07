@@ -57,15 +57,15 @@ var socket = (function () {
   }
 
   socket.prototype.onClose = function onClose () {
-    this.connState = 0
     if (this.connState) {
+      this.connState = 0
       this.onReceiver({ Event: 'close' })
     }
   }
 
   socket.prototype.send = function send (data) {
     if (this.socket.readyState !== 1) {
-      console.log('readyState', this.socket.readyState)
+      // console.log('readyState', this.socket.readyState)
       setTimeout(function () {
         this.send(data)
         this.doOpen()
@@ -90,7 +90,7 @@ var socket = (function () {
     try {
       let msg = pako.inflate(message, { to: 'string' })
       const response = JSON.parse(msg)
-      console.log(response)
+      // console.log('message >>>>>>>>>>', response)
       if (response.ping) {
         this.checkHeartbeat.bind(this)
       } else if (response.status === 'ok') {

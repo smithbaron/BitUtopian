@@ -293,7 +293,7 @@ var TVjsApi = (function () {
     return limit
   }
   TVjsApi.prototype.getBars = function (symbolInfo, resolution, rangeStartDate, rangeEndDate, onLoadedCallback) {
-    // console.log(' >> :', rangeStartDate, rangeEndDate)
+    // console.log('getBars>>>>>>>>>>> :', rangeStartDate, rangeEndDate)
     var ticker = this.symbol + '-' + resolution
     var tickerload = ticker + 'load'
     var tickerstate = ticker + 'state'
