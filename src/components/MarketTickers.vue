@@ -161,6 +161,12 @@ export default {
         const reg = new RegExp(this.searchCode, 'i')
         this.tickerList = this.tickerAllList.filter(item => {
           if (reg.test(item.symbol)) return true
+        }).map(item => {
+          const temp = { ...item }
+          temp.cellClassName = {
+            change: item.change.indexOf('+') > -1 ? 'blue-color' : 'red-color'
+          }
+          return temp
         })
       } else {
         let reg
@@ -270,7 +276,7 @@ export default {
             margin-top: 16px;
         }
         .ticker-table{
-            border: 1px solid #ccc;
+            border: 1px solid #666;
             margin-top: 16px;
             .ivu-table td{
                 background-color: #141722;
@@ -287,7 +293,7 @@ export default {
             .ivu-table .ivu-table-header th{
                 background-color: #272B3D;
                 color: #666;
-                border-color: #ccc;
+                border-color: #666;
             }
             .ivu-table-sort i.on{
                 color: #ff9900;
@@ -298,7 +304,7 @@ export default {
             .ivu-table-small td {
                 height: 36px;
                 color: #ccc;
-                border-color: #ccc;
+                border-color: #666;
             }
             .ivu-table .red-color{
                 color: #EF534F;

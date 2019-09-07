@@ -102,7 +102,7 @@ export default {
             showSymbol: false,
             symbolSize: 10,
             itemStyle: {
-              color: 'blue',
+              color: '#FF9900',
               borderColor: 'yellow',
               shadowColor: 'rgba(0, 0, 0, 0.5)',
               shadowBlur: 10
@@ -145,7 +145,7 @@ export default {
             showSymbol: false,
             symbolSize: 10,
             itemStyle: {
-              color: 'blue',
+              color: '#FF9900',
               borderColor: 'yellow',
               shadowColor: 'rgba(0, 0, 0, 0.5)',
               shadowBlur: 10

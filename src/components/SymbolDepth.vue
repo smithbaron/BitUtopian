@@ -107,6 +107,7 @@ export default {
     },
     changeTab (tab) {
       this.tab = tab
+      this.firstScroll = true
       this.getList(this.symbolDepth)
     }
   }

@@ -24,8 +24,10 @@ export default {
   },
   watch: {
     symbol (symbol) {
-      this.TVjsApi.symbol = symbol.replace('/', '').toLocaleLowerCase()
-      this.TVjsApi.widgets.chart().setSymbol(symbol.replace('/', '').toLocaleLowerCase());
+      if (symbol) {
+        this.TVjsApi.symbol = symbol.replace('/', '').toLocaleLowerCase()
+        this.TVjsApi.widgets.chart().setSymbol(symbol.replace('/', '').toLocaleLowerCase());
+      }
     }
   }
 }

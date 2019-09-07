@@ -94,7 +94,6 @@ export default {
         this.getTickerList()
       } else {
         this.tickerList = []
-
       }
     },
     getTickerList () {
@@ -102,6 +101,12 @@ export default {
         const reg = new RegExp(this.searchCode, 'i')
         this.tickerList = this.tickerAllList.filter(item => {
           if (reg.test(item.pair)) return true
+        }).map(item => {
+          const temp = { ...item }
+          temp.cellClassName = {
+            change: item.change.indexOf('+') > -1 ? 'blue-color' : 'red-color'
+          }
+          return temp
         })
       } else {
         let reg

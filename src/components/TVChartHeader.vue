@@ -30,7 +30,7 @@
             </div>
             <div class="volume">
                 <p class="title">{{commonText.volume[language]}}</p>
-                <p class="price">{{`${vol} ${symbol.split('/')[1]}`}}</p>
+                <p class="price">{{`${formatSidePrice(vol)} ${symbol.split('/')[1]}`}}</p>
             </div>
         </div>
     </div>
