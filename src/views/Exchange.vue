@@ -24,6 +24,12 @@
                                 <span :class="{'selected': tabType === 'tradingView'}" @click="tabChange('tradingView')">TradingView</span>
                                 <span :class="{'selected': tabType === 'depth'}" @click="tabChange('depth')">Depth</span>
                             </div>
+                            <div :class="{'control-right': true, 'left': !showRight}" @click="controlRight">
+                                <span class="arrow"></span>
+                            </div>
+                            <div :class="{'control-bottom': true, 'top': !showBottom}" @click="controlBottom">
+                                <span class="arrow"></span>
+                            </div>
                             <TVChartContainer v-if="tabType === 'tradingView'"
                                               :symbol="symbol"
                                               :exchange="exchange"
@@ -36,9 +42,9 @@
                             ></EChartsDepth>
                         </div>
                     </div>
-                    <TradeColumn :language="language"></TradeColumn>
+                    <TradeColumn v-if="showBottom" :language="language"></TradeColumn>
                 </div>
-                <div class="ticker-content-right">
+                <div class="ticker-content-right" :style="{width: showRight ? '260px' : '0px'}">
                     <SymbolDepth :symbolDepth="symbolDepth"
                                  :symbolDetail="symbolDetail"
                                  :tradeDetail="tradeDetail"
@@ -85,6 +91,8 @@ export default {
       theme: 'dark',
       symbol: 'BTC/USDT',
       exchange: 'Huobi',
+      showRight: true,
+      showBottom: true,
       language: urlParams.lang || 'en',
       tickers: [],
       symbolDetail: {},
@@ -138,6 +146,12 @@ export default {
     },
     tabChange (value) {
       this.tabType = value
+    },
+    controlRight () {
+      this.showRight = !this.showRight
+    },
+    controlBottom () {
+      this.showBottom = !this.showBottom
     },
     getDataCallback (data) {
 
@@ -204,6 +218,64 @@ export default {
                 height: calc(100% - 65px);
                 position: relative;
                 background-color: #272B3D;
+                .control-right{
+                    position: absolute;
+                    right: -8px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    border-radius: 4px;
+                    width: 8px;
+                    height: 30px;
+                    background-color: #1C1F2C;
+                    z-index: 10;
+                    overflow: hidden;
+                    cursor: pointer;
+                    &.left{
+                        right: 0;
+                        transform: translateY(-50%) rotate(180deg);
+                    }
+                    .arrow {
+                        position: absolute;
+                        left: 2px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 0;
+                        height: 0;
+                        border-top: 8px #1C1F2C solid;
+                        border-right: 4px #1C1F2C solid;
+                        border-bottom: 8px #1C1F2C solid;
+                        border-left: 4px #ccc solid;
+                    }
+                }
+                .control-bottom {
+                    position: absolute;
+                    bottom: -8px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border-radius: 4px;
+                    width: 30px;
+                    height: 8px;
+                    background-color: #1C1F2C;
+                    z-index: 10;
+                    overflow: hidden;
+                    cursor: pointer;
+                    &.top{
+                        bottom: 0;
+                        transform: translateX(-50%) rotate(180deg);
+                    }
+                    .arrow {
+                        position: absolute;
+                        top: 2px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-top: 4px #ccc solid;
+                        border-right: 8px #1C1F2C solid;
+                        border-bottom: 4px #1C1F2C solid;
+                        border-left: 8px #1C1F2C solid;
+                    }
+                }
                 .tab{
                     position: absolute;
                     top: 0;
@@ -231,6 +303,5 @@ export default {
     }
     .ticker-content-right{
         display: inline-block;
-        width: 260px;
     }
 </style>
