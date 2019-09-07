@@ -177,9 +177,11 @@ export default {
                 background-color: #272B3D;
                 .ivu-select-item{
                     color: #ccc;
+                    background-color: #272B3D;
                 }
                 .ivu-select-item-selected{
                     color: #ff9900;
+                    background-color: #272B3D;
                 }
             }
         }

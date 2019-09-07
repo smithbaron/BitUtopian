@@ -12,8 +12,8 @@
             </ul>
         </div>
         <div class="depth-title">
-            <span>Price</span>
-            <span>Amount</span>
+            <span>{{commonText['price'][language]}}</span>
+            <span>{{commonText['amount'][language]}}</span>
         </div>
         <div class="depth-content">
             <div v-if="tab !== 'asks'" class="bids-list">
@@ -43,9 +43,11 @@
 </template>
 <script>
 import { formatSidePrice } from '../helper/util'
+import { commonText } from '../constants/textContents'
+
 export default {
   name: 'SymbolDepth',
-  props: ['symbolDepth', 'symbolDetail', 'symbol'],
+  props: ['symbolDepth', 'symbolDetail', 'symbol', 'language'],
   data () {
     return {
       tabList: [{
@@ -63,6 +65,7 @@ export default {
       asksList: [],
       maxAsks: 0,
       formatSidePrice,
+      commonText,
       firstScroll: true,
       tab: 'all'
     }

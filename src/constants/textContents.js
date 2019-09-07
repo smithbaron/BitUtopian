@@ -40,6 +40,44 @@ export const searchText = {
   en: 'search coin name',
   zh: '搜索币种'
 }
+export const commonText = {
+  price: {
+    en: 'Price',
+    zh: '价格'
+  },
+  amount: {
+    en: 'Amount',
+    zh: '数量'
+  },
+  date: {
+    en: 'Date',
+    zh: '时间'
+  },
+  tradeHistory: {
+    en: 'Trade History',
+    zh: '交易历史'
+  },
+  lastPrice: {
+    en: 'Last Price',
+    zh: '最新价'
+  },
+  change: {
+    en: '24h Change',
+    zh: '24h涨跌'
+  },
+  high: {
+    en: '24h High',
+    zh: '24h最高价'
+  },
+  low: {
+    en: '24h Low',
+    zh: '24h最低价'
+  },
+  volume: {
+    en: '24h Volume',
+    zh: '24h成交量'
+  }
+}
 export const dockingCoins = ['Huobi', 'OKEx']
 export const symbolCoins = ['BTC', 'USDT', 'ETH', 'OTHER']
 export const columns = {
@@ -148,3 +186,4 @@ export const columnSide = {
     align: 'right'
   }]
 }
+

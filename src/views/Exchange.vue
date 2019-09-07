@@ -16,6 +16,7 @@
                         <TVChartHeader :symbol="symbol"
                                        :exchange="exchange"
                                        :symbolDetail="symbolDetail"
+                                       :language="language"
                         ></TVChartHeader>
                         <div class="TVChartContainer">
                             <div class="tab">
@@ -27,14 +28,24 @@
                                               :exchange="exchange"
                                               :language="language"
                             ></TVChartContainer>
-                            <EChartsDepth v-else :symbolDepth="symbolDepth"></EChartsDepth>
+                            <EChartsDepth v-else
+                                          :symbolDepth="symbolDepth"
+                                          :symbol="symbol"
+                                          :language="language"
+                            ></EChartsDepth>
                         </div>
                     </div>
                     <TradeColumn></TradeColumn>
                 </div>
                 <div class="ticker-content-right">
-                    <SymbolDepth :symbolDepth="symbolDepth" :symbolDetail="symbolDetail" :symbol="symbol"></SymbolDepth>
-                    <TradeDetail :tradeDetail="tradeDetail"></TradeDetail>
+                    <SymbolDepth :symbolDepth="symbolDepth"
+                                 :symbolDetail="symbolDetail"
+                                 :symbol="symbol"
+                                 :language="language"
+                    ></SymbolDepth>
+                    <TradeDetail :tradeDetail="tradeDetail"
+                                 :language="language"
+                    ></TradeDetail>
                 </div>
             </div>
         </Content>
@@ -44,7 +55,6 @@
 <script>
 import { Layout } from 'iview'
 import Socket from '../helper/ioService'
-// import TVjsApi from '../helper/TVjsApi'
 import CommonHeader from '../components/CommonHeader'
 import TickerSide from '../components/TickerSide'
 import TVChartHeader from '../components/TVChartHeader'
@@ -199,7 +209,7 @@ export default {
                     height: 38px;
                     line-height: 38px;
                     color: #CCC;
-                    z-index: 1000;
+                    z-index: 900;
                     span{
                         margin-right: 10px;
                         padding: 5px;

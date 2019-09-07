@@ -1,12 +1,12 @@
 <template>
     <div class="trade-detail-wrapper">
         <div class="header">
-            Trade History
+            {{commonText['tradeHistory'][language]}}
         </div>
         <div class="trade-title">
-            <span class="price">Price</span>
-            <span class="amount">Amount</span>
-            <span class="date">Date</span>
+            <span class="price">{{commonText['price'][language]}}</span>
+            <span class="amount">{{commonText['amount'][language]}}</span>
+            <span class="date">{{commonText['date'][language]}}</span>
         </div>
         <div class="trade-content">
             <div v-for="(item, index) in tradeHistory" class="trade-item" :key="index">
@@ -20,12 +20,15 @@
 
 <script>
 import { addZero, formatE7, formatSidePrice } from '../helper/util'
+import { commonText } from '../constants/textContents'
+
 export default {
   name: 'TradeDetail',
-  props: ['tradeDetail'],
+  props: ['tradeDetail', 'language'],
   data () {
     return {
       tradeHistory: [],
+      commonText,
       formatE7,
       formatSidePrice
     }

@@ -6,39 +6,41 @@
                 <p class="docking">{{exchange}}</p>
             </div>
             <div class="price-container">
-                <p class="title">Last Price</p>
+                <p class="title">{{commonText.lastPrice[language]}}</p>
                 <p class="price">
-                    <span class="dollar">{{formatE7(close)}}</span>
+                    <span class="dollar">{{formatSidePrice(close)}}</span>
                 </p>
             </div>
             <div class="change">
-                <p class="title">24h Change</p>
+                <p class="title">{{commonText.change[language]}}</p>
                 <p :class="priceChange.indexOf('+') > -1 ? 'price blue-color' : 'price red-color'">
-                    <span>{{priceChange}}</span>
+                    <span>{{formatSidePrice(priceChange)}}</span>
                     <span>{{change}}</span>
                 </p>
             </div>
             <div class="high">
-                <p class="title">24h High</p>
-                <p class="price">{{high}}</p>
+                <p class="title">{{commonText.high[language]}}</p>
+                <p class="price">{{formatSidePrice(high)}}</p>
             </div>
             <div class="low">
-                <p class="title">24h Low</p>
-                <p class="price">{{low}}</p>
+                <p class="title">{{commonText.low[language]}}</p>
+                <p class="price">{{formatSidePrice(low)}}</p>
             </div>
             <div class="volume">
-                <p class="title">24h Volume</p>
-                <p class="price">{{vol}} USDT</p>
+                <p class="title">{{commonText.volume[language]}}</p>
+                <p class="price">{{`${vol} ${symbol.split('/')[1]}`}}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { tickerChange, formatE7 } from '../helper/util'
+import { tickerChange, formatE7, formatSidePrice } from '../helper/util'
+import { commonText } from '../constants/textContents'
+
 export default {
   name: 'TVChartContainer',
-  props: ['symbol', 'exchange', 'symbolDetail'],
+  props: ['symbol', 'exchange', 'symbolDetail', 'language'],
   data () {
     return {
       close: '--',
@@ -47,7 +49,9 @@ export default {
       high: '--',
       low: '--',
       vol: '--',
-      formatE7
+      commonText,
+      formatE7,
+      formatSidePrice
     }
   },
   mounted () {

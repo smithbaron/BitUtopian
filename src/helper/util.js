@@ -160,7 +160,8 @@ export function formatE7 (num) {
 }
 
 export function formatSidePrice (num) {
-  if (!num) return '-'
+  num = num - 0
+  if (!num && num !== 0) return '--'
   if (num >= 100) {
     return num.toFixed(2)
   }
