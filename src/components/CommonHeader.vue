@@ -3,7 +3,7 @@
         <Menu mode="horizontal" :theme="theme" active-name="1">
             <div class="wrapper-header-nav">
                 <a href="/" class="wrapper-header-nav-logo">
-                    <img src="../images/bit.png">
+                    <img src="../images/bitUtopian.png">
                 </a>
                 <MenuItem name="1">
                     <span @click="goUrl('/exchange')">{{menuText[0][language]}}</span>

@@ -3,7 +3,7 @@
         <div class="ticker-side-content">
             <div class="search-select">
                 <Input class="search" style="width: 45%" @on-search="searchHandle" v-model="searchCode" size="small" search placeholder="search" />
-                <Select class="select" v-model="exchange" size="small" style="width: 45%">
+                <Select class="select" v-model="curExchange" size="small" style="width: 45%" @on-change="selectExchange">
                     <Option v-for="item in dockingCoins" :value="item" :key="item">{{ item }}</Option>
                 </Select>
             </div>
@@ -21,7 +21,8 @@
                 <Table @on-row-click="selectSymbol"
                        size="small"
                        :columns="columnSide[language]"
-                       height="630"
+                       :no-data-text="curExchange === 'Huobi' ? commonText.noData[language] : commonText.comingSoon[language]"
+                       height="700"
                        :data="tickerList"></Table>
             </div>
         </div>
@@ -31,7 +32,7 @@
 <script>
 import { Input, Select, Option, Button, Table } from 'iview'
 import { formatSideTickers, connectList, sortList } from '../helper/util'
-import { dockingCoins, symbolCoins, columnSide } from '../constants/textContents'
+import { dockingCoins, symbolCoins, columnSide, commonText } from '../constants/textContents'
 
 export default {
   name: 'exchange',
@@ -52,7 +53,9 @@ export default {
       columnSide,
       tickerAllList: [],
       tickerList: [],
-      dockingCoins
+      dockingCoins,
+      curExchange: this.exchange,
+      commonText
     }
   },
   created () {
@@ -62,6 +65,7 @@ export default {
   },
   watch: {
     tickers (data) {
+      if (this.exchange !== 'Huobi') return
       const tickers = formatSideTickers(data)
       if (this.tickers.length === 0) {
         this.tickerAllList = sortList(tickers, 'pair')
@@ -83,6 +87,15 @@ export default {
     },
     selectSymbol (e) {
       this.changeState('symbol', e.pair)
+    },
+    selectExchange (value) {
+      this.changeState('exchange', value)
+      if (value === 'Huobi') {
+        this.getTickerList()
+      } else {
+        this.tickerList = []
+
+      }
     },
     getTickerList () {
       if (this.searchCode) {

@@ -77,17 +77,19 @@
             </div>
         </div>
         <div class="modal">
-            COMING SOON
+            <span class="text">{{commonText.comingSoon[language]}}</span>
         </div>
     </div>
 </template>
 <script>
+import { commonText } from '../constants/textContents'
 
 export default {
   name: 'TradeColumn',
+  props: ['language'],
   data () {
     return {
-      containerId: 'tv_chart_container'
+      commonText
     }
   },
   mounted () {
@@ -97,7 +99,7 @@ export default {
 
 <style lang="scss" scoped>
 .trade-column-wrapper{
-    height: 300px;
+    height: 350px;
     width: 100%;
     background-color: #272B3D;
     position: relative;
@@ -110,12 +112,19 @@ export default {
         background-color: rgba(0, 0, 0, 0.4);
         font-size: 24px;
         color: #666;
-        line-height: 200px;
         text-align: center;
+        .text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+        }
     }
     .trade-column-header{
         height: 40px;
         background-color: #1C1F2C;
+        padding: 0 50px;
         span{
             display: inline-block;
             padding: 0 20px;
@@ -155,12 +164,12 @@ export default {
             padding: 15px 0 10px;
             color: #999;
             font-size: 12px;
-            line-height: 16px;
+            line-height: 20px;
             .title{
                 color: #ccc;
                 font-size: 14px;
-                line-height: 18px;
-                margin-bottom: 8px;
+                line-height: 20px;
+                margin-bottom: 10px;
             }
             .left{
                 display: inline-block;
@@ -194,7 +203,7 @@ export default {
                 color: #fff;
                 text-align: center;
                 width: 300px;
-                line-height: 20px;
+                line-height: 25px;
                 .orange{
                     color: #FF9900;
                     padding: 0 4px;
@@ -204,14 +213,14 @@ export default {
         .buy-box{
             padding: 0 75px;
             &>div{
-                margin-bottom: 8px;
+                margin-bottom: 10px;
             }
             border-right: 1px #ccc solid;
         }
         .sell-box{
             padding: 0 75px;
             &>div{
-                margin-bottom: 8px;
+                margin-bottom: 10px;
             }
         }
     }

@@ -35,7 +35,7 @@
                             ></EChartsDepth>
                         </div>
                     </div>
-                    <TradeColumn></TradeColumn>
+                    <TradeColumn :language="language"></TradeColumn>
                 </div>
                 <div class="ticker-content-right">
                     <SymbolDepth :symbolDepth="symbolDepth"
@@ -150,7 +150,7 @@ export default {
     }
     .ticker-content{
         width: 100%;
-        height: 780px;
+        height: 850px;
         padding-top: 55px;
         display: -webkit-box;
         display: -ms-flexbox;

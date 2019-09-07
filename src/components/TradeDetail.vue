@@ -61,7 +61,7 @@ export default {
 <style lang="scss" scoped>
 .trade-detail-wrapper{
     margin-top: 5px;
-    height: 360px;
+    height: 395px;
     border-radius: 2px;
     background-color: #272B3D;
     position: relative;

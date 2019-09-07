@@ -113,7 +113,7 @@ export default {
 
 <style lang="scss" scoped>
 .depth-wrapper{
-    height: 360px;
+    height: 395px;
     background-color: #272B3D;
     border-radius: 2px;
     position: relative;
@@ -140,7 +140,7 @@ export default {
             width: 20px;
             height: 3px;
             border-radius: 2px;
-            background-color: red;
+            background-color: #EF534F;
             margin-bottom: 2px;
             &:last-child {
                 margin-bottom: 0;
