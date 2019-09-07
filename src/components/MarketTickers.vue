@@ -289,6 +289,9 @@ export default {
                 color: #666;
                 border-color: #ccc;
             }
+            .ivu-table-sort i.on{
+                color: #ff9900;
+            }
             .ivu-table-small th {
                 height: 40px;
             }
