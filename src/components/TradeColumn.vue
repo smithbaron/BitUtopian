@@ -36,10 +36,12 @@
                         <span class="right">USDT</span>
                     </div>
                     <div class="btn">
-                        <span class="orange">Log in</span>
-                        <span>or</span>
-                        <span class="orange">Register</span>
-                        <span>to trade</span>
+                        <div>
+                            <span class="orange">Log in</span>
+                            <span>or</span>
+                            <span class="orange">Register</span>
+                            <span>to trade</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,10 +70,12 @@
                         <span class="right">USDT</span>
                     </div>
                     <div class="btn">
-                        <span class="orange">Log in</span>
-                        <span>or</span>
-                        <span class="orange">Register</span>
-                        <span>to trade</span>
+                        <div>
+                            <span class="orange">Log in</span>
+                            <span>or</span>
+                            <span class="orange">Register</span>
+                            <span>to trade</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -176,8 +180,10 @@ export default {
                 width: 70px;
             }
             .right{
+                flex: auto;
+                -webkit-flex: auto;
+                -ms-flex: auto;
                 display: inline-block;
-                width: 230px;
                 text-align: right;
                 background-color: #1C1F2C;
             }
@@ -202,8 +208,11 @@ export default {
                 border-radius: 4px;
                 color: #fff;
                 text-align: center;
-                width: 300px;
+                width: 100%;
                 line-height: 25px;
+                &>div{
+                    margin: 0 auto;
+                }
                 .orange{
                     color: #FF9900;
                     padding: 0 4px;
@@ -214,6 +223,9 @@ export default {
             padding: 0 75px;
             &>div{
                 margin-bottom: 10px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
             }
             border-right: 1px #ccc solid;
         }
@@ -221,6 +233,9 @@ export default {
             padding: 0 75px;
             &>div{
                 margin-bottom: 10px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
             }
         }
     }

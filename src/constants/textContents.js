@@ -78,8 +78,8 @@ export const commonText = {
     zh: '24h成交量'
   },
   noData: {
-    en: 'No Results Found',
-    zh: '暂无数据'
+    en: 'loading...',
+    zh: '加载中...'
   },
   comingSoon: {
     en: 'COMING SOON',

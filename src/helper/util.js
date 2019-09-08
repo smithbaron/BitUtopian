@@ -84,24 +84,27 @@ export function formatSideTickers (data, type) {
   switch (type) {
     case 'OKEx': {
       return data.map(item => {
-        const { instrument_id: symbol, last, open_24h: open } = item
+        const { instrument_id: symbol, last, open_24h: open, quote_volume_24h: volume } = item
         const change = tickerChange(open, last)
         return {
           pair: symbol.replace('-', '/'),
           price: formatSidePrice(last - 0),
-          change
+          change,
+          volume
         }
       })
     }
     case 'Huobi':
     default: {
       return data.map(item => {
-        const { symbol, close, open } = item
+        const { symbol, close, open, vol } = item
+        console.log(item)
         const change = tickerChange(open, close)
         return {
           pair: formatSymbol(symbol),
           price: formatSidePrice(close - 0),
-          change
+          change,
+          volume: vol
         }
       })
     }
@@ -129,11 +132,17 @@ export function connectList (arr1, arr2, key = 'pair') {
 
 export function sortList (arr, key) {
   return arr.sort((prev, next) => {
-    const x = prev[key].toLowerCase()
-    const y = next[key].toLowerCase()
-    if (x < y) { return -1 }
-    if (x > y) { return 1 }
+    const x = prev[key] - 0
+    const y = next[key] - 0
+    if (x < y) { return 1 }
+    if (x > y) { return -1 }
     return 0
+  }).map(item => {
+    return {
+      pair: item.pair,
+      price: item.price,
+      change: item.change
+    }
   })
 }
 

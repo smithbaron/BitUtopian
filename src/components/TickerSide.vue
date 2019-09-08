@@ -68,9 +68,9 @@ export default {
       if (this.exchange !== 'Huobi') return
       const tickers = formatSideTickers(data)
       if (this.tickers.length === 0) {
-        this.tickerAllList = sortList(tickers, 'pair')
+        this.tickerAllList = sortList(tickers, 'volume')
       } else {
-        this.tickerAllList = sortList(connectList(this.tickerAllList, tickers), 'pair')
+        this.tickerAllList = sortList(connectList(this.tickerAllList, tickers), 'volume')
       }
       this.getTickerList()
     }

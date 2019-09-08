@@ -59,8 +59,8 @@ export default {
       symbolType: 'BTC',
       loading: false,
       searchCode: '',
-      sortKey: 'symbol',
-      sortOrder: 'asc',
+      sortKey: 'volume',
+      sortOrder: 'desc',
       titleText,
       registerText,
       tradeText,
@@ -112,14 +112,21 @@ export default {
     changeSort (data) {
       const { key, order } = data
       this.sortKey = key
-      this.sortOrder = order
+      console.log(order)
       this.tickerAllList = this.sortList(this.tickerAllList)
       this.getTickerList()
     },
     sortList (arr) {
       return arr.sort((prev, next) => {
-        const x = prev[this.sortKey].toLowerCase()
-        const y = next[this.sortKey].toLowerCase()
+        let x = (prev[this.sortKey] + '').replace('%', 0) - 0
+        let y = (next[this.sortKey] + '').replace('%', 0) - 0
+        // if (x.indexOf('%') > -1) {
+        //   x = x.toLowerCase()
+        //   y = y.toLowerCase()
+        // } else {
+        //   x = x - 0
+        //   y = y - 0
+        // }
         if (x < y) { return this.sortOrder === 'asc' ? -1 : 1 }
         if (x > y) { return this.sortOrder === 'asc' ? 1 : -1 }
         return 0
@@ -130,6 +137,9 @@ export default {
       this.searchCode = ''
       this.tickerList = []
       Socket.doClose()
+      if (type === 'Huobi') {
+        Socket.connect(this.exchange)
+      }
     },
     changeSymbolType (type) {
       this.symbolType = type
