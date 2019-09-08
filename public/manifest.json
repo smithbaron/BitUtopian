@@ -3,7 +3,7 @@
   "start_url": "./index.html",
   "description": "A simple Hello, Blockstack app",
   "icons": [{
-    "src": "favicon.ico",
+    "src": "https://www.bitutopian.com/favicon.ico",
     "sizes": "400x400",
     "type": "image/png"
   }]
