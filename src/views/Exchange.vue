@@ -260,7 +260,8 @@ export default {
                     overflow: hidden;
                     cursor: pointer;
                     &.top{
-                        bottom: 0;
+                        position: fixed;
+                        bottom: 8px;
                         transform: translateX(-50%) rotate(180deg);
                     }
                     .arrow {
