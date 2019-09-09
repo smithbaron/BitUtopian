@@ -92,74 +92,74 @@ export const columns = {
   en: [{
     title: 'SYMBOL',
     key: 'symbol',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'left'
   }, {
     title: 'LAST PRICE',
     key: 'last',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'left'
   }, {
     title: '24H CHANGE',
     key: 'change',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'right'
   }, {
     title: '24H HIGHT',
     key: 'high',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'right'
   }, {
     title: '24H LOW',
     key: 'low',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'right'
   }, {
     title: '24H VOLUME',
     key: 'volume',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'right'
   }],
   zh: [{
     title: '币种',
     key: 'symbol',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'left'
   }, {
     title: '最后价格',
     key: 'last',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'left'
   }, {
     title: '24H 涨幅',
     key: 'change',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'right'
   }, {
     title: '24H 最高价',
     key: 'high',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'right'
   }, {
     title: '24H 最低价',
     key: 'low',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'right'
   }, {
     title: '24H 交易量',
     key: 'volume',
-    sortable: true,
+    sortable: 'custom',
     tooltip: true,
     align: 'right'
   }]

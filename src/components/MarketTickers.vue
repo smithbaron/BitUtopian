@@ -112,21 +112,24 @@ export default {
     changeSort (data) {
       const { key, order } = data
       this.sortKey = key
-      console.log(order)
+      this.sortOrder = order
       this.tickerAllList = this.sortList(this.tickerAllList)
       this.getTickerList()
     },
     sortList (arr) {
       return arr.sort((prev, next) => {
-        let x = (prev[this.sortKey] + '').replace('%', 0) - 0
-        let y = (next[this.sortKey] + '').replace('%', 0) - 0
-        // if (x.indexOf('%') > -1) {
-        //   x = x.toLowerCase()
-        //   y = y.toLowerCase()
-        // } else {
-        //   x = x - 0
-        //   y = y - 0
-        // }
+        let x
+        let y
+        if (this.sortKey === 'change') {
+          x = (prev[this.sortKey] + '').replace('%', 0) - 0
+          y = (next[this.sortKey] + '').replace('%', 0) - 0
+        } else if (this.sortKey === 'symbol') {
+          x = prev[this.sortKey]
+          y = next[this.sortKey]
+        } else {
+          x = prev[this.sortKey] - 0
+          y = next[this.sortKey] - 0
+        }
         if (x < y) { return this.sortOrder === 'asc' ? -1 : 1 }
         if (x > y) { return this.sortOrder === 'asc' ? 1 : -1 }
         return 0
