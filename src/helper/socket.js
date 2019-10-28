@@ -24,7 +24,7 @@ var socket = (function () {
 
   socket.prototype.doOpen = function doOpen () {
     var _this = this
-    console.log('我被调用了')
+    // console.log('我被调用了')
     if (this.connState) return
     this.connState = 1
     this.afterOpenEmit = []
@@ -64,7 +64,7 @@ var socket = (function () {
   }
 
   socket.prototype.send = function send (data) {
-    console.log('reqKline>>>>>>>>>>>>>>', data)
+    // console.log('reqKline>>>>>>>>>>>>>>', data)
     if (this.socket.readyState !== 1) {
       // console.log('readyState', this.socket.readyState)
       setTimeout(function () {
@@ -99,7 +99,7 @@ var socket = (function () {
       } else if (response.ch) {
         this.onReceiver({ Event: 'message', Data: response })
       } else {
-        console.log('message >>>>>>>>>>', response)
+        // console.log('message >>>>>>>>>>', response)
       }
     } catch (err) {
       console.error(' >> Data parsing error:', err)

@@ -9,6 +9,7 @@
                         :tickers="tickers"
                         :symbol="symbol"
                         :changeState="changeState"
+                        @exchange-change="handleExchangeChange"
             ></TickerSide>
             <div class="ticker-content-wrapper">
                 <div class="ticker-content-left">
@@ -21,6 +22,8 @@
                         ></TVChartHeader>
                         <div class="TVChartContainer">
                             <div class="tab">
+                                <span :class="{'selected': tabType === 'compare'}" @click="tabChange('compare')">Compare</span>
+                                <span :class="{'selected': tabType === 'manyCycles'}" @click="tabChange('manyCycles')">ManyCycles</span>
                                 <span :class="{'selected': tabType === 'tradingView'}" @click="tabChange('tradingView')">TradingView</span>
                                 <span :class="{'selected': tabType === 'depth'}" @click="tabChange('depth')">Depth</span>
                             </div>
@@ -34,7 +37,14 @@
                                               :symbol="symbol"
                                               :exchange="exchange"
                                               :language="language"
+                                              :containerId="'tv_chart_container'"
                             ></TVChartContainer>
+                            <TVChartCompare v-else-if="tabType === 'manyCycles' || tabType === 'compare'"
+                                            :symbolCoins="symbolCoinsList"
+                                            :exchange="exchange"
+                                            :language="language"
+                                            :isManyCycles="tabType === 'manyCycles'">
+                            </TVChartCompare>
                             <EChartsDepth v-else
                                           :symbolDepth="symbolDepth"
                                           :symbol="symbol"
@@ -71,6 +81,8 @@ import TradeColumn from '../components/TradeColumn'
 import SymbolDepth from '../components/SymbolDepth'
 import EChartsDepth from '../components/EChartsDepth'
 import TradeDetail from '../components/TradeDetail'
+import TVChartCompare from '../components/TVChartCompare'
+import { symbolCoins, manyCyclesInterval } from '../constants/textContents'
 
 export default {
   name: 'exchange',
@@ -83,7 +95,8 @@ export default {
     SymbolDepth,
     EChartsDepth,
     TVChartContainer,
-    TradeDetail
+    TradeDetail,
+    TVChartCompare
   },
   data () {
     const urlParams = this.$route.query
@@ -101,7 +114,8 @@ export default {
       socket: null,
       isLogin: true,
       tabType: 'tradingView',
-      TVjsApi: null
+      TVjsApi: null,
+      symbolCoinsList: []
     }
   },
   created () {
@@ -109,6 +123,10 @@ export default {
     Socket.connect(this.exchange, () => {
       this.sendSocket(this.symbol)
     })
+    this.symbolCoinsList = symbolCoins.map((t, index) => {
+      return { symbol: 'BTC/USTD', containerId: t, interval: manyCyclesInterval[index] }
+    })
+    // console.log(this.symbolCoinsList, 'list')
   },
   mounted () {
     // const config = {
@@ -153,8 +171,14 @@ export default {
     controlBottom () {
       this.showBottom = !this.showBottom
     },
-    getDataCallback (data) {
-
+    getDataCallback (data) {},
+    handleExchangeChange (value) {
+      Socket.doClose()
+      this.exchange = value
+      Socket.register({ commonSetData: this.changeState })
+      Socket.connect(this.exchange, () => {
+        this.sendSocket(this.symbol)
+      })
     }
   }
 }

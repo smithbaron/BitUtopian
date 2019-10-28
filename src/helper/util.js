@@ -98,7 +98,7 @@ export function formatSideTickers (data, type) {
     default: {
       return data.map(item => {
         const { symbol, close, open, vol } = item
-        console.log(item)
+        // console.log(item)
         const change = tickerChange(open, close)
         return {
           pair: formatSymbol(symbol),

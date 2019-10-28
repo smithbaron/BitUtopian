@@ -57,7 +57,7 @@ export default {
     }
   },
   mounted () {
-    console.log('symbolDetail', this.symbolDetail)
+    // console.log('symbolDetail', this.symbolDetail)
   },
   watch: {
     symbolDetail (symbolDetail) {

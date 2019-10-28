@@ -88,6 +88,7 @@ export const commonText = {
 }
 export const dockingCoins = ['Huobi', 'OKEx']
 export const symbolCoins = ['BTC', 'USDT', 'ETH', 'OTHER']
+export const manyCyclesInterval = ['15', '30', '60', '1D']
 export const columns = {
   en: [{
     title: 'SYMBOL',
@@ -277,4 +278,37 @@ export const homeText = {
   content5: [
 
   ]
+}
+export const walletTab = [
+  {
+    en: 'Account',
+    zh: '账户'
+  },
+  {
+    en: 'Orders',
+    zh: '订单'
+  },
+  {
+    en: 'Deposit',
+    zh: '存款'
+  },
+  {
+    en: 'Withdraw',
+    zh: '收回'
+  }
+]
+
+export const orderTab = [
+  {
+    en: 'Pending Orders',
+    zh: ''
+  },
+  {
+    en: 'Orders History',
+    zh: ''
+  }
+]
+
+export const loginText = {
+  
 }

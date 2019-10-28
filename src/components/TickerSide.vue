@@ -95,6 +95,7 @@ export default {
       } else {
         this.tickerList = []
       }
+      this.$emit('exchange-change', value)
     },
     getTickerList () {
       if (this.searchCode) {

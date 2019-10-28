@@ -17,6 +17,7 @@ class IoService {
       callback && callback()
     }
     socketK.onmessage = (event) => {
+      // console.log(event, 'event')
       let blob = event.data
       let reader = new FileReader()
       reader.onload = (e) => {
@@ -24,12 +25,14 @@ class IoService {
         let msg
         if (type === 'Huobi') {
           msg = pako.inflate(ploydata, { to: 'string' })
-        } else {
+        } else if (type === 'OKEx') {
           if (!(typeof ploydata === 'string')) {
             msg = pako.inflateRaw(ploydata, { to: 'string' })
           } else {
             msg = ploydata
           }
+        } else if (type === 'Bibox') {
+          // const base = atob(blob)
         }
         this.handleData(msg)
       }
@@ -99,7 +102,7 @@ class IoService {
       // 响应数据
       this.handleReponseData(data)
     } else {
-      console.log(data)
+      // console.log(data)
     }
   }
 

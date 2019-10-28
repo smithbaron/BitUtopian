@@ -10,7 +10,8 @@ var TVjsApi = (function () {
     this.datafeeds = new datafeeds(this)
     this.symbol = config.symbol
     this.locale = config.locale
-    this.interval = localStorage.getItem('tradingview.resolution') || '5'
+    this.container_id = config.containerId
+    this.interval = config.interval || localStorage.getItem('tradingview.resolution') || '5'
     this.cacheData = {}
     this.lastTime = null
     this.getBarTimer = null
@@ -41,7 +42,7 @@ var TVjsApi = (function () {
         autosize: true,
         symbol: symbol,
         interval: resolution,
-        container_id: 'tv_chart_container',
+        container_id: this.container_id,
         datafeed: this.datafeeds,
         library_path: './charting_library/',
         enabled_features: [],
@@ -271,13 +272,12 @@ var TVjsApi = (function () {
     // 商品名
     var symbol = that.symbol
     // 如果当前时间节点已经改变，停止上一个时间节点的订阅，修改时间节点值
-    console.log(that.interval, resolution)
     if (that.interval !== resolution) {
       that.unSubscribe(that.interval)
       that.interval = resolution
     }
     // 获取当前时间段的数据，在onMessage中执行回调onLoadedCallback
-    console.log('reqKline>>>>>>>>>>>>>>')
+    // console.log('reqKline>>>>>>>>>>>>>>')
     if (first) {
       that.socket.send({
         req: `market.${that.symbol}.kline.${that.getInterval(that.interval)}`,
@@ -309,7 +309,7 @@ var TVjsApi = (function () {
     var tickerstate = ticker + 'state'
 
     if (!this.cacheData[ticker] && !this.cacheData[tickerstate]) {
-      console.log('getBars>>>>>>>>>>> :', ticker, this.cacheData[ticker], this.cacheData[tickerstate])
+      // console.log('getBars>>>>>>>>>>> :', ticker, this.cacheData[ticker], this.cacheData[tickerstate])
 
       // 如果缓存没有数据，而且未发出请求，记录当前节点开始时间
       this.cacheData[tickerload] = rangeStartDate
@@ -360,6 +360,8 @@ var TVjsApi = (function () {
         return '15min'
       case '30':
         return '30min'
+      case '60':
+        return '1hour'
       case '1D':
         return '1day'
       case '1W':
